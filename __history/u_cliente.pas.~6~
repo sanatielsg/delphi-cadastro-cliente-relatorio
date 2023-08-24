@@ -1,0 +1,38 @@
+unit u_cliente;
+
+interface
+
+type
+  TCliente = class
+    FCodigo        : integer;
+    FNome          : string;
+    FCPF           : string;
+    FRG            : string;
+    FCNPJ          : string;
+    FTipoPessoa    :  integer;
+    FEndereco      : string;
+    FNumero        : string;
+    FCEP           : string;
+    FCidade        : string;
+    FUF            : string;
+    FLimiteCredito : Double;
+    FDtHrCadastro  : string;
+  end;
+  property Codigo          : integer read  write  ;
+  property Nome            : string read  write  ;
+  property CPF             : string read  write  ;
+  property RG              : string read  write  ;
+  property CNPJ            : string read  write  ;
+  property TipoPessoa      : integer read  write  ;
+  property Endereco        : string read  write  ;
+  property Numero          : string read  write  ;
+  property CEP             : string read  write  ;
+  property Cidade          : string read  write  ;
+  property UF              : string read  write  ;
+  property LimiteCredito   : Double read  write  ;
+  property DtHrCadastro    : string read  write  ;
+
+
+implementation
+
+end.

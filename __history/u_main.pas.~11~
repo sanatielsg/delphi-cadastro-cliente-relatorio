@@ -8,8 +8,7 @@ uses
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles,
   cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB,
   cxDBData, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls, Vcl.StdCtrls,
-  System.ImageList, Vcl.ImgList;
+  cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls, Vcl.StdCtrls;
 
 type
   TFrmMain = class(TForm)
@@ -18,31 +17,10 @@ type
     TSConsulta: TTabSheet;
     Panel1: TPanel;
     Panel2: TPanel;
-    TabSheet1: TTabSheet;
-    GridConsultaDBTableView1: TcxGridDBTableView;
-    GridConsultaLevel1: TcxGridLevel;
-    GridConsulta: TcxGrid;
-    GroupBox1: TGroupBox;
-    ComboBox1: TComboBox;
-    Label1: TLabel;
+    cxGrid1: TcxGrid;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
     Button1: TButton;
-    GroupBox2: TGroupBox;
-    Button2: TButton;
-    RadioGroup1: TRadioGroup;
-    RadioGroup2: TRadioGroup;
-    GroupBox3: TGroupBox;
-    DateTimePicker1: TDateTimePicker;
-    Label2: TLabel;
-    DateTimePicker2: TDateTimePicker;
-    Label3: TLabel;
-    Button3: TButton;
-    Panel3: TPanel;
-    Panel4: TPanel;
-    Button4: TButton;
-    ImageList: TImageList;
-    Button5: TButton;
-    Button6: TButton;
-    Button7: TButton;
 
   private
     { Private declarations }

@@ -6,16 +6,20 @@ uses
   System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG,
-  FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client;
+  FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.DataSet, u_cliente;
 
 type
   TDM = class(TDataModule)
     Conn: TFDConnection;
-    Driver: TFDPhysPgDriverLink;
+    FDPhysPgDriverLink: TFDPhysPgDriverLink;
+    Query: TFDQuery;
   private
     { Private declarations }
   public
     { Public declarations }
+    function Inserir(Value : TCliente): Integer;
   end;
 
 var
@@ -26,5 +30,22 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+{ TDM }
+
+function TDM.Inserir(Value: TCliente): Integer;
+begin
+
+  try
+    with Query do
+    begin
+
+    end;
+
+  finally
+
+  end;
+
+end;
 
 end.

@@ -1,0 +1,26 @@
+unit u_cliente;
+
+interface
+
+type
+  TCliente = class
+    FCodigo        : integer;
+    FNome          : string;
+    FCPF           : string;
+    FRG            : string;
+    FCNPJ          : string;
+    FTipoPessoa    :  integer;
+    FEndereco      : string;
+    FNumero        : string;
+    FCEP           : string;
+    FCidade        : string;
+    FUF            : string;
+    FLimiteCredito : Double;
+
+
+
+  end;
+
+implementation
+
+end.

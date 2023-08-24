@@ -41,7 +41,7 @@ object FrmMain: TFrmMain
           Height = 57
           Caption = 'Inserir'
           ImageAlignment = iaTop
-          ImageIndex = 2
+          ImageIndex = 0
           ImageMargins.Top = 10
           Images = ImageList
           TabOrder = 0
@@ -77,7 +77,7 @@ object FrmMain: TFrmMain
           Height = 57
           Caption = 'Cancelar'
           ImageAlignment = iaTop
-          ImageIndex = 8
+          ImageIndex = 1
           ImageMargins.Top = 10
           Images = ImageList
           TabOrder = 3
