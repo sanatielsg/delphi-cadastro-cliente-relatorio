@@ -18,7 +18,7 @@ object FrmMain: TFrmMain
     Top = 0
     Width = 678
     Height = 386
-    ActivePage = TSConsulta
+    ActivePage = TSCadastro
     Align = alClient
     TabOrder = 0
     object TSCadastro: TTabSheet
