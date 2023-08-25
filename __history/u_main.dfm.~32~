@@ -116,7 +116,6 @@ object FrmMain: TFrmMain
           Top = 32
           Width = 447
           Height = 21
-          MaxLength = 100
           TabOrder = 1
         end
       end

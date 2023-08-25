@@ -43,6 +43,10 @@ type
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
+    Edit1: TEdit;
+    Label4: TLabel;
+    Edit2: TEdit;
+    Label5: TLabel;
 
   private
     { Private declarations }
