@@ -19,6 +19,9 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     TabSheet1: TTabSheet;
+    GridConsultaDBTableView1: TcxGridDBTableView;
+    GridConsultaLevel1: TcxGridLevel;
+    GridConsulta: TcxGrid;
     GroupBox1: TGroupBox;
     ComboBox1: TComboBox;
     Label1: TLabel;
