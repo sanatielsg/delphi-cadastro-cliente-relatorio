@@ -70,10 +70,6 @@ type
     Edit8: TEdit;
     Label15: TLabel;
     Edit9: TEdit;
-    TabSheet5: TTabSheet;
-    GroupBox7: TGroupBox;
-    Label16: TLabel;
-    Edit10: TEdit;
 
   private
     { Private declarations }

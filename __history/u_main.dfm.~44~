@@ -3,7 +3,7 @@ object FrmMain: TFrmMain
   Top = 0
   Caption = 'Clientes'
   ClientHeight = 419
-  ClientWidth = 490
+  ClientWidth = 600
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object FrmMain: TFrmMain
   object PgcMain: TPageControl
     Left = 0
     Top = 0
-    Width = 490
+    Width = 600
     Height = 419
     ActivePage = TSCadastro
     Align = alClient
@@ -31,7 +31,7 @@ object FrmMain: TFrmMain
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 482
+        Width = 592
         Height = 65
         Align = alTop
         TabOrder = 0
@@ -89,12 +89,11 @@ object FrmMain: TFrmMain
       object Panel4: TPanel
         Left = 0
         Top = 65
-        Width = 482
+        Width = 592
         Height = 326
         Align = alClient
         TabOrder = 1
         ExplicitTop = 67
-        ExplicitWidth = 592
         object Label4: TLabel
           Left = 8
           Top = 15
@@ -127,9 +126,9 @@ object FrmMain: TFrmMain
         object PageControl1: TPageControl
           Left = 8
           Top = 67
-          Width = 465
-          Height = 254
-          ActivePage = TabSheet2
+          Width = 433
+          Height = 182
+          ActivePage = TabSheet4
           TabOrder = 2
           object TabSheet2: TTabSheet
             Caption = 'Pessoa F'#237'sica'
@@ -138,33 +137,33 @@ object FrmMain: TFrmMain
             object GroupBox4: TGroupBox
               Left = 3
               Top = 3
-              Width = 451
-              Height = 220
+              Width = 419
+              Height = 148
               Caption = 'Pessoa F'#237'sica'
               TabOrder = 0
               object Label5: TLabel
-                Left = 10
+                Left = 16
                 Top = 20
                 Width = 89
                 Height = 13
                 Caption = 'Nome Completo'
               end
               object Label6: TLabel
-                Left = 10
-                Top = 67
+                Left = 16
+                Top = 69
                 Width = 20
                 Height = 13
                 Caption = 'CPF'
               end
               object Label8: TLabel
-                Left = 146
-                Top = 67
+                Left = 152
+                Top = 72
                 Width = 16
                 Height = 13
                 Caption = 'RG'
               end
               object Edit2: TEdit
-                Left = 10
+                Left = 16
                 Top = 39
                 Width = 369
                 Height = 21
@@ -172,8 +171,8 @@ object FrmMain: TFrmMain
                 TabOrder = 0
               end
               object MaskEdit1: TMaskEdit
-                Left = 10
-                Top = 83
+                Left = 16
+                Top = 88
                 Width = 129
                 Height = 21
                 EditMask = '999.999.999-99'
@@ -182,8 +181,8 @@ object FrmMain: TFrmMain
                 Text = '   .   .   -  '
               end
               object Edit3: TEdit
-                Left = 145
-                Top = 83
+                Left = 151
+                Top = 88
                 Width = 146
                 Height = 21
                 NumbersOnly = True
@@ -194,38 +193,37 @@ object FrmMain: TFrmMain
           object TabSheet3: TTabSheet
             Caption = 'Pessoa Jur'#237'dica'
             ImageIndex = 1
-            ExplicitWidth = 425
             ExplicitHeight = 161
             object GroupBox5: TGroupBox
               Left = 3
-              Top = 0
-              Width = 451
-              Height = 223
+              Top = 3
+              Width = 419
+              Height = 150
               Caption = 'Pessoa Jur'#237'dica'
               TabOrder = 0
               object Label9: TLabel
-                Left = 11
+                Left = 16
                 Top = 22
                 Width = 71
                 Height = 13
                 Caption = 'Raz'#227'o Social'
               end
               object Label10: TLabel
-                Left = 11
+                Left = 16
                 Top = 63
                 Width = 83
                 Height = 13
                 Caption = 'Nome Fantasia'
               end
               object Label7: TLabel
-                Left = 11
+                Left = 16
                 Top = 104
                 Width = 27
                 Height = 13
                 Caption = 'CNPJ'
               end
               object Edit4: TEdit
-                Left = 11
+                Left = 16
                 Top = 39
                 Width = 369
                 Height = 21
@@ -233,7 +231,7 @@ object FrmMain: TFrmMain
                 TabOrder = 0
               end
               object Edit5: TEdit
-                Left = 11
+                Left = 16
                 Top = 79
                 Width = 369
                 Height = 21
@@ -241,7 +239,7 @@ object FrmMain: TFrmMain
                 TabOrder = 1
               end
               object MaskEdit2: TMaskEdit
-                Left = 11
+                Left = 16
                 Top = 119
                 Width = 129
                 Height = 21
@@ -256,13 +254,11 @@ object FrmMain: TFrmMain
             Caption = 'Endere'#231'o'
             ImageIndex = 2
             ExplicitLeft = 0
-            ExplicitWidth = 425
-            ExplicitHeight = 154
             object GroupBox6: TGroupBox
               Left = 3
               Top = 0
-              Width = 451
-              Height = 223
+              Width = 419
+              Height = 151
               Caption = 'Endere'#231'o'
               TabOrder = 0
               object Label11: TLabel
@@ -340,36 +336,6 @@ object FrmMain: TFrmMain
               end
             end
           end
-          object TabSheet5: TTabSheet
-            Caption = 'Financeiro'
-            ImageIndex = 3
-            ExplicitLeft = 0
-            ExplicitWidth = 425
-            ExplicitHeight = 154
-            object GroupBox7: TGroupBox
-              Left = 0
-              Top = 0
-              Width = 454
-              Height = 223
-              Caption = 'Financeiro'
-              TabOrder = 0
-              object Label16: TLabel
-                Left = 12
-                Top = 24
-                Width = 96
-                Height = 13
-                Caption = 'Limite de Cr'#233'dito'
-              end
-              object Edit10: TEdit
-                Left = 12
-                Top = 39
-                Width = 109
-                Height = 21
-                TabOrder = 0
-                Text = '0,00'
-              end
-            end
-          end
         end
       end
     end
@@ -383,7 +349,7 @@ object FrmMain: TFrmMain
       object Panel1: TPanel
         Left = 0
         Top = 359
-        Width = 482
+        Width = 592
         Height = 32
         Align = alBottom
         TabOrder = 0
@@ -393,7 +359,7 @@ object FrmMain: TFrmMain
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 482
+        Width = 592
         Height = 57
         Align = alTop
         TabOrder = 1
@@ -402,7 +368,7 @@ object FrmMain: TFrmMain
       object DBGrid1: TDBGrid
         Left = 0
         Top = 57
-        Width = 482
+        Width = 592
         Height = 302
         Align = alClient
         TabOrder = 2
