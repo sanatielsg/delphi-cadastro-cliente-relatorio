@@ -23,10 +23,12 @@ uses
   Vcl.Grids,
   Vcl.DBGrids,
   Vcl.Mask,
-  cxClasses, cxLocalization, cxGraphics, cxControls, cxLookAndFeels,
-  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
-  cxDataStorage, cxEdit, cxNavigator, cxDBData, cxGridLevel, cxGridCustomView,
-  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
+  cxClasses,
+  cxLocalization, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  cxDBData, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGrid,
+
   u_util
   ;
 
@@ -159,18 +161,18 @@ begin
         if EdtCadCodigo.Text <> '' then
           Codigo :=  StrToInt(EdtCadCodigo.Text);
         Nome       := EdtCadNome.Text;
-        CPF        := TUtil.RemoveMascara(EdtCadCPF);
+        CPF        := TUtil.RemoveMascara(EdtCadCPF).Text;
         RG         := EdtCadRG.Text;
-        CNPJ       := TUtil.RemoveMascara(EdtCadCNPJ);
+        CNPJ       := TUtil.RemoveMascara(EdtCadCNPJ).Text;
         TipoPessoa := RgpCadTipoPessoa.ItemIndex;
         Endereco   := EdtCadEndereco.Text;
         Numero     := EdtCadNumero.Text;
-        CEP        := TUtil.RemoveMascara(EdtCadCEP);
+        CEP        := TUtil.RemoveMascara(EdtCadCEP).Text;
         Cidade     := EdtCadCidade.Text;
         UF         := EdtCadUF.Text;
         if EdtCadLimite.Text <> '' then
           LimiteCredito := StrToFloat(EdtCadLimite.Text);
-        DataNascimento := DTPDataNascimento.Date;
+        DataNascimento := DTPDataNascimento.Text;
       end;
       if (Cliente.Codigo = 0) then
         DM.Inserir(Cliente)

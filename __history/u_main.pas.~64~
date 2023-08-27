@@ -27,7 +27,10 @@ uses
   cxLocalization, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
   cxDBData, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid;
+  cxGridTableView, cxGridDBTableView, cxGrid,
+
+  u_util
+  ;
 
 type
   TFrmMain = class(TForm)
@@ -38,19 +41,19 @@ type
     Panel2: TPanel;
     TabSheet1: TTabSheet;
     GroupBox1: TGroupBox;
-    ComboBox1: TComboBox;
+    CbxRelMes: TComboBox;
     Label1: TLabel;
-    Button1: TButton;
+    BrnRelAniversariantes: TButton;
     GroupBox2: TGroupBox;
-    Button2: TButton;
-    RadioGroup1: TRadioGroup;
-    RadioGroup2: TRadioGroup;
+    BtnRelCadastral: TButton;
+    RgpRelOrdenacao: TRadioGroup;
+    RgpRelOrdem: TRadioGroup;
     GroupBox3: TGroupBox;
-    DateTimePicker1: TDateTimePicker;
+    DTPRelDataIni: TDateTimePicker;
     Label2: TLabel;
-    DateTimePicker2: TDateTimePicker;
+    DTPRelDataFim: TDateTimePicker;
     Label3: TLabel;
-    Button3: TButton;
+    BtnRelAuditoria: TButton;
     Panel3: TPanel;
     Panel4: TPanel;
     BtnCadInserir: TButton;
@@ -95,28 +98,30 @@ type
     Label16: TLabel;
     EdtCadLimite: TEdit;
     cxLocalizer: TcxLocalizer;
-    cxGrid1DBTableView1: TcxGridDBTableView;
-    cxGrid1Level1: TcxGridLevel;
-    cxGrid1: TcxGrid;
-    cxGrid1DBTableView1cli_codigo: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_nome: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_cpf: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_rg: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_cnpj: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_tipo_pessoa: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_endereco: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_numero: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_cep: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_cidade: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_uf: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_limite_credito: TcxGridDBColumn;
-    cxGrid1DBTableView1cli_dthr_cadastro: TcxGridDBColumn;
+    GrdConsultaDBTableView1: TcxGridDBTableView;
+    GrdConsultaLevel1: TcxGridLevel;
+    GrdConsulta: TcxGrid;
+    GrdConsultaDBTableView1cli_codigo: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_nome: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_cpf: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_rg: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_cnpj: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_tipo_pessoa: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_endereco: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_numero: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_cep: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_cidade: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_uf: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_limite_credito: TcxGridDBColumn;
+    GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
+    procedure BtnCadInserirClick(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure Inserir();
   end;
 
 var
@@ -128,6 +133,11 @@ implementation
 
 { TFrmMain }
 
+procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
+begin
+  Inserir();
+end;
+
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
 if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
@@ -136,6 +146,44 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
         cxLocalizer.LanguageIndex := 1; {Muda o idioma / linguagem}
         cxLocalizer.Active := TRUE;     {Ativa o componente / a tradução}
     end;
+end;
+
+procedure TFrmMain.Inserir;
+var Cliente : TCliente;
+begin
+  Cliente := TCliente.Create;
+  try
+    try
+      with Cliente do
+      begin
+        if EdtCadCodigo.Text <> '' then
+          Codigo :=  StrToInt(EdtCadCodigo.Text);
+        Nome       := EdtCadNome.Text;
+        CPF        := TUtil.RemoveMascara(EdtCadCPF).Text;
+        RG         := EdtCadRG.Text;
+        CNPJ       := TUtil.RemoveMascara(EdtCadCNPJ).Text;
+        TipoPessoa := RgpCadTipoPessoa.ItemIndex;
+        Endereco   := EdtCadEndereco.Text;
+        Numero     := EdtCadNumero.Text;
+        CEP        := TUtil.RemoveMascara(EdtCadCEP).Text;
+        Cidade     := EdtCadCidade.Text;
+        UF         := EdtCadUF.Text;
+        if EdtCadLimite.Text <> '' then
+          LimiteCredito := StrToFloat(EdtCadLimite.Text);
+        DataNascimento := EdtCadDataNascimento.Text;
+      end;
+      if (Cliente.Codigo = 0) then
+        DM.Inserir(Cliente)
+      else
+        DM.Alterar(Cliente);
+      ShowMessage('Registro gravado com Sucesso!');
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro ao inserir : '+E.Message);
+    end;
+  finally
+    FreeAndNil(Cliente);
+  end;
 end;
 
 end.

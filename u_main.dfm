@@ -155,6 +155,13 @@ object FrmMain: TFrmMain
                 Height = 13
                 Caption = 'RG'
               end
+              object Label17: TLabel
+                Left = 10
+                Top = 117
+                Width = 113
+                Height = 13
+                Caption = 'Data de Nascimento'
+              end
               object EdtCadNome: TEdit
                 Left = 10
                 Top = 39
@@ -180,6 +187,15 @@ object FrmMain: TFrmMain
                 Height = 21
                 NumbersOnly = True
                 TabOrder = 2
+              end
+              object DTPDataNascimento: TDateTimePicker
+                Left = 10
+                Top = 131
+                Width = 118
+                Height = 21
+                Date = 45164.992311053240000000
+                Time = 45164.992311053240000000
+                TabOrder = 3
               end
             end
           end
@@ -235,10 +251,10 @@ object FrmMain: TFrmMain
                 Top = 119
                 Width = 129
                 Height = 21
-                EditMask = '999.999.999-99'
-                MaxLength = 14
+                EditMask = '99.999.999/9999-99'
+                MaxLength = 18
                 TabOrder = 2
-                Text = '   .   .   -  '
+                Text = '  .   .   /    -  '
               end
             end
           end

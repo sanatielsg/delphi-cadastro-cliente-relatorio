@@ -18,7 +18,7 @@ type
       FUF            : string;
       FLimiteCredito : Double;
       FDtHrCadastro  : string;
-      FDataNascimento: TDate;
+      FDataNascimento: string;
     public
       property Codigo          : integer read FCodigo        write FCodigo ;
       property Nome            : string read  FNome          write FNome          ;
@@ -33,7 +33,7 @@ type
       property UF              : string read  FUF            write FUF            ;
       property LimiteCredito   : Double read  FLimiteCredito write FLimiteCredito ;
       property DtHrCadastro    : string read  FDtHrCadastro  write FDtHrCadastro  ;
-      property DataNascimento  : TDate read  FDataNascimento write FDataNascimento;
+      property DataNascimento  : string read  FDataNascimento write FDataNascimento;
   end;
 
 

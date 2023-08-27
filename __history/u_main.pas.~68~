@@ -23,11 +23,12 @@ uses
   Vcl.Grids,
   Vcl.DBGrids,
   Vcl.Mask,
-  cxClasses,
-  cxLocalization, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
-  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
-  cxDBData, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid;
+  cxClasses, cxLocalization, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, cxDBData, cxGridLevel, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
+  u_util
+  ;
 
 type
   TFrmMain = class(TForm)
@@ -43,12 +44,12 @@ type
     BrnRelAniversariantes: TButton;
     GroupBox2: TGroupBox;
     BtnRelCadastral: TButton;
-    RadioGroup1: TRadioGroup;
-    RadioGroup2: TRadioGroup;
+    RgpRelOrdenacao: TRadioGroup;
+    RgpRelOrdem: TRadioGroup;
     GroupBox3: TGroupBox;
-    DateTimePicker1: TDateTimePicker;
+    DTPRelDataIni: TDateTimePicker;
     Label2: TLabel;
-    DateTimePicker2: TDateTimePicker;
+    DTPRelDataFim: TDateTimePicker;
     Label3: TLabel;
     BtnRelAuditoria: TButton;
     Panel3: TPanel;
@@ -111,12 +112,16 @@ type
     GrdConsultaDBTableView1cli_uf: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_limite_credito: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
+    DTPDataNascimento: TDateTimePicker;
+    Label17: TLabel;
     procedure FormCreate(Sender: TObject);
+    procedure BtnCadInserirClick(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure Inserir();
   end;
 
 var
@@ -128,6 +133,11 @@ implementation
 
 { TFrmMain }
 
+procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
+begin
+  Inserir();
+end;
+
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
 if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
@@ -136,6 +146,44 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
         cxLocalizer.LanguageIndex := 1; {Muda o idioma / linguagem}
         cxLocalizer.Active := TRUE;     {Ativa o componente / a tradução}
     end;
+end;
+
+procedure TFrmMain.Inserir;
+var Cliente : TCliente;
+begin
+  Cliente := TCliente.Create;
+  try
+    try
+      with Cliente do
+      begin
+        if EdtCadCodigo.Text <> '' then
+          Codigo :=  StrToInt(EdtCadCodigo.Text);
+        Nome       := EdtCadNome.Text;
+        CPF        := TUtil.RemoveMascara(EdtCadCPF).Text;
+        RG         := EdtCadRG.Text;
+        CNPJ       := TUtil.RemoveMascara(EdtCadCNPJ).Text;
+        TipoPessoa := RgpCadTipoPessoa.ItemIndex;
+        Endereco   := EdtCadEndereco.Text;
+        Numero     := EdtCadNumero.Text;
+        CEP        := TUtil.RemoveMascara(EdtCadCEP).Text;
+        Cidade     := EdtCadCidade.Text;
+        UF         := EdtCadUF.Text;
+        if EdtCadLimite.Text <> '' then
+          LimiteCredito := StrToFloat(EdtCadLimite.Text);
+        DataNascimento := DTPDataNascimento.Date;
+      end;
+      if (Cliente.Codigo = 0) then
+        DM.Inserir(Cliente)
+      else
+        DM.Alterar(Cliente);
+      ShowMessage('Registro gravado com Sucesso!');
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro ao inserir : '+E.Message);
+    end;
+  finally
+    FreeAndNil(Cliente);
+  end;
 end;
 
 end.

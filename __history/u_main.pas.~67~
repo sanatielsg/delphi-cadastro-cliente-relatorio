@@ -27,7 +27,10 @@ uses
   cxLocalization, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
   cxDBData, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid;
+  cxGridTableView, cxGridDBTableView, cxGrid,
+
+  u_util
+  ;
 
 type
   TFrmMain = class(TForm)
@@ -111,6 +114,8 @@ type
     GrdConsultaDBTableView1cli_uf: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_limite_credito: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
+    DTPDataNascimento: TDateTimePicker;
+    Label17: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
 
@@ -150,10 +155,34 @@ var Cliente : TCliente;
 begin
   Cliente := TCliente.Create;
   try
-
-
-
-
+    try
+      with Cliente do
+      begin
+        if EdtCadCodigo.Text <> '' then
+          Codigo :=  StrToInt(EdtCadCodigo.Text);
+        Nome       := EdtCadNome.Text;
+        CPF        := TUtil.RemoveMascara(EdtCadCPF).Text;
+        RG         := EdtCadRG.Text;
+        CNPJ       := TUtil.RemoveMascara(EdtCadCNPJ).Text;
+        TipoPessoa := RgpCadTipoPessoa.ItemIndex;
+        Endereco   := EdtCadEndereco.Text;
+        Numero     := EdtCadNumero.Text;
+        CEP        := TUtil.RemoveMascara(EdtCadCEP).Text;
+        Cidade     := EdtCadCidade.Text;
+        UF         := EdtCadUF.Text;
+        if EdtCadLimite.Text <> '' then
+          LimiteCredito := StrToFloat(EdtCadLimite.Text);
+        DataNascimento := DTPDataNascimento.Date;
+      end;
+      if (Cliente.Codigo = 0) then
+        DM.Inserir(Cliente)
+      else
+        DM.Alterar(Cliente);
+      ShowMessage('Registro gravado com Sucesso!');
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro ao inserir : '+E.Message);
+    end;
   finally
     FreeAndNil(Cliente);
   end;

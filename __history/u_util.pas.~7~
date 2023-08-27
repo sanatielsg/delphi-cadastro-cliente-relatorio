@@ -1,0 +1,25 @@
+unit u_util;
+
+interface
+
+uses Vcl.Mask;
+
+type
+  TUtil = class
+    private
+
+    public
+      class function RemoveMascara(Value : TMaskEdit): string;
+  end;
+
+implementation
+
+{ TUtil }
+
+class function TUtil.RemoveMascara(Value: TMaskEdit): string;
+begin
+  Value.EditMask := '';
+  Result :=  Value;
+end;
+
+end.
