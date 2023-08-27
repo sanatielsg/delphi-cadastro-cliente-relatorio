@@ -114,6 +114,10 @@ type
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
     DTPDataNascimento: TDateTimePicker;
     Label17: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
 
