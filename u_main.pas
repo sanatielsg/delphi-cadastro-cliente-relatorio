@@ -65,14 +65,14 @@ type
     PageControl1: TPageControl;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
-    GroupBox4: TGroupBox;
+    GbxCadPF: TGroupBox;
     Label5: TLabel;
     Label6: TLabel;
     Label8: TLabel;
     EdtCadNome: TEdit;
     EdtCadCPF: TMaskEdit;
     EdtCadRG: TEdit;
-    GroupBox5: TGroupBox;
+    GbxCadPJ: TGroupBox;
     Label9: TLabel;
     Label10: TLabel;
     Label7: TLabel;
@@ -80,7 +80,7 @@ type
     EdtCadFantasia: TEdit;
     EdtCadCNPJ: TMaskEdit;
     TabSheet4: TTabSheet;
-    GroupBox6: TGroupBox;
+    GbxCadEndereco: TGroupBox;
     Label11: TLabel;
     EdtCadEndereco: TEdit;
     Label12: TLabel;
@@ -92,7 +92,7 @@ type
     Label15: TLabel;
     EdtCadUF: TEdit;
     TabSheet5: TTabSheet;
-    GroupBox7: TGroupBox;
+    GbxCadFinanceiro: TGroupBox;
     Label16: TLabel;
     EdtCadLimite: TEdit;
     cxLocalizer: TcxLocalizer;
@@ -114,10 +114,10 @@ type
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
     DTPDataNascimento: TDateTimePicker;
     Label17: TLabel;
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
-    Button4: TButton;
+    BtnCadAnterior: TButton;
+    BtnCadProximo: TButton;
+    BtnCadUltimo: TButton;
+    BtnCadPrimeiro: TButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
 

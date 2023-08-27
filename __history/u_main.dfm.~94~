@@ -86,7 +86,7 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 3
         end
-        object Button1: TButton
+        object BtnCadAnterior: TButton
           Left = 359
           Top = 19
           Width = 34
@@ -97,7 +97,7 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 4
         end
-        object Button2: TButton
+        object BtnCadProximo: TButton
           Left = 396
           Top = 19
           Width = 34
@@ -108,7 +108,7 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 5
         end
-        object Button3: TButton
+        object BtnCadUltimo: TButton
           Left = 432
           Top = 19
           Width = 34
@@ -119,7 +119,7 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 6
         end
-        object Button4: TButton
+        object BtnCadPrimeiro: TButton
           Left = 324
           Top = 19
           Width = 34
@@ -174,16 +174,16 @@ object FrmMain: TFrmMain
           Width = 465
           Height = 254
           ActivePage = TabSheet2
-          Enabled = False
           TabOrder = 2
           object TabSheet2: TTabSheet
             Caption = 'Pessoa F'#237'sica'
-            object GroupBox4: TGroupBox
+            object GbxCadPF: TGroupBox
               Left = 3
               Top = 3
               Width = 451
               Height = 220
               Caption = 'Pessoa F'#237'sica'
+              Enabled = False
               TabOrder = 0
               object Label5: TLabel
                 Left = 10
@@ -253,12 +253,13 @@ object FrmMain: TFrmMain
           object TabSheet3: TTabSheet
             Caption = 'Pessoa Jur'#237'dica'
             ImageIndex = 1
-            object GroupBox5: TGroupBox
+            object GbxCadPJ: TGroupBox
               Left = 3
               Top = 0
               Width = 451
               Height = 223
               Caption = 'Pessoa Jur'#237'dica'
+              Enabled = False
               TabOrder = 0
               object Label9: TLabel
                 Left = 11
@@ -312,7 +313,7 @@ object FrmMain: TFrmMain
           object TabSheet4: TTabSheet
             Caption = 'Endere'#231'o'
             ImageIndex = 2
-            object GroupBox6: TGroupBox
+            object GbxCadEndereco: TGroupBox
               Left = 3
               Top = 0
               Width = 451
@@ -397,7 +398,7 @@ object FrmMain: TFrmMain
           object TabSheet5: TTabSheet
             Caption = 'Financeiro'
             ImageIndex = 3
-            object GroupBox7: TGroupBox
+            object GbxCadFinanceiro: TGroupBox
               Left = 0
               Top = 0
               Width = 454

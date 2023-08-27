@@ -23,12 +23,10 @@ uses
   Vcl.Grids,
   Vcl.DBGrids,
   Vcl.Mask,
-  cxClasses,
-  cxLocalization, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
-  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
-  cxDBData, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid,
-
+  cxClasses, cxLocalization, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, cxDBData, cxGridLevel, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
   u_util
   ;
 
@@ -114,6 +112,12 @@ type
     GrdConsultaDBTableView1cli_uf: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_limite_credito: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
+    DTPDataNascimento: TDateTimePicker;
+    Label17: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
 
@@ -159,18 +163,18 @@ begin
         if EdtCadCodigo.Text <> '' then
           Codigo :=  StrToInt(EdtCadCodigo.Text);
         Nome       := EdtCadNome.Text;
-        CPF        := TUtil.RemoveMascara.Text;
+        CPF        := TUtil.RemoveMascara(EdtCadCPF);
         RG         := EdtCadRG.Text;
-        CNPJ       := EdtCadCNPJ.Text;
+        CNPJ       := TUtil.RemoveMascara(EdtCadCNPJ);
         TipoPessoa := RgpCadTipoPessoa.ItemIndex;
         Endereco   := EdtCadEndereco.Text;
         Numero     := EdtCadNumero.Text;
-        CEP        := EdtCadCEP.Text;
+        CEP        := TUtil.RemoveMascara(EdtCadCEP);
         Cidade     := EdtCadCidade.Text;
         UF         := EdtCadUF.Text;
         if EdtCadLimite.Text <> '' then
           LimiteCredito := StrToFloat(EdtCadLimite.Text);
-
+        DataNascimento := DTPDataNascimento.Date;
       end;
       if (Cliente.Codigo = 0) then
         DM.Inserir(Cliente)

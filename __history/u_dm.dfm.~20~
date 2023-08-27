@@ -8,7 +8,6 @@ object DM: TDM
       'User_Name=postgres'
       'Password=Super@321'
       'DriverID=PG')
-    Connected = True
     LoginPrompt = False
     Left = 40
     Top = 72
@@ -25,7 +24,6 @@ object DM: TDM
     Top = 88
   end
   object QryConsultaClientes: TFDQuery
-    Active = True
     Connection = Conn
     SQL.Strings = (
       'select * from cliente')

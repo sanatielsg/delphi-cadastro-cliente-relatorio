@@ -86,9 +86,9 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 3
         end
-        object Button1: TButton
+        object BtnCadAnterior: TButton
           Left = 359
-          Top = 18
+          Top = 19
           Width = 34
           Height = 29
           Enabled = False
@@ -97,9 +97,9 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 4
         end
-        object Button2: TButton
+        object BtnCadProximo: TButton
           Left = 396
-          Top = 18
+          Top = 19
           Width = 34
           Height = 29
           Enabled = False
@@ -108,9 +108,9 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 5
         end
-        object Button3: TButton
+        object BtnCadUltimo: TButton
           Left = 432
-          Top = 18
+          Top = 19
           Width = 34
           Height = 29
           Enabled = False
@@ -119,9 +119,9 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 6
         end
-        object Button4: TButton
+        object BtnCadPrimeiro: TButton
           Left = 324
-          Top = 18
+          Top = 19
           Width = 34
           Height = 29
           Enabled = False
@@ -140,14 +140,14 @@ object FrmMain: TFrmMain
         TabOrder = 1
         object Label4: TLabel
           Left = 8
-          Top = 15
+          Top = 12
           Width = 38
           Height = 13
           Caption = 'C'#243'digo'
         end
         object EdtCadCodigo: TEdit
           Left = 8
-          Top = 32
+          Top = 29
           Width = 64
           Height = 21
           MaxLength = 10
@@ -156,7 +156,7 @@ object FrmMain: TFrmMain
         end
         object RgpCadTipoPessoa: TRadioGroup
           Left = 256
-          Top = 23
+          Top = 20
           Width = 185
           Height = 38
           Caption = 'Tipo Pessoa'
@@ -169,8 +169,8 @@ object FrmMain: TFrmMain
           TabOrder = 1
         end
         object PageControl1: TPageControl
-          Left = 8
-          Top = 67
+          Left = 9
+          Top = 66
           Width = 465
           Height = 254
           ActivePage = TabSheet2
