@@ -3,7 +3,7 @@ object FrmMain: TFrmMain
   Top = 0
   Caption = 'Clientes'
   ClientHeight = 419
-  ClientWidth = 600
+  ClientWidth = 490
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,32 +12,27 @@ object FrmMain: TFrmMain
   Font.Style = [fsBold]
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object PgcMain: TPageControl
     Left = 0
     Top = 0
-    Width = 600
+    Width = 490
     Height = 419
     ActivePage = TSCadastro
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 678
-    ExplicitHeight = 386
     object TSCadastro: TTabSheet
       Caption = 'Cadastro'
-      ExplicitWidth = 670
-      ExplicitHeight = 358
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 592
+        Width = 482
         Height = 65
         Align = alTop
         TabOrder = 0
-        ExplicitTop = -6
-        ExplicitWidth = 739
-        object Button4: TButton
+        object BtnCadInserir: TButton
           Left = 82
           Top = 4
           Width = 73
@@ -49,7 +44,7 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 0
         end
-        object Button5: TButton
+        object BtnCadNovo: TButton
           Left = 3
           Top = 4
           Width = 73
@@ -61,7 +56,7 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 1
         end
-        object Button6: TButton
+        object BtnCadExcluir: TButton
           Left = 161
           Top = 4
           Width = 73
@@ -73,7 +68,7 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 2
         end
-        object Button7: TButton
+        object BtnCadCancelar: TButton
           Left = 240
           Top = 4
           Width = 73
@@ -89,19 +84,18 @@ object FrmMain: TFrmMain
       object Panel4: TPanel
         Left = 0
         Top = 65
-        Width = 592
+        Width = 482
         Height = 326
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 67
         object Label4: TLabel
           Left = 8
           Top = 15
           Width = 38
-          Height = 17
+          Height = 13
           Caption = 'C'#243'digo'
         end
-        object Edit1: TEdit
+        object EdtCadCodigo: TEdit
           Left = 8
           Top = 32
           Width = 64
@@ -110,7 +104,7 @@ object FrmMain: TFrmMain
           NumbersOnly = True
           TabOrder = 0
         end
-        object RadioGroup3: TRadioGroup
+        object RgpCadTipoPessoa: TRadioGroup
           Left = 256
           Top = 23
           Width = 185
@@ -126,53 +120,51 @@ object FrmMain: TFrmMain
         object PageControl1: TPageControl
           Left = 8
           Top = 67
-          Width = 433
-          Height = 182
-          ActivePage = TabSheet4
+          Width = 465
+          Height = 254
+          ActivePage = TabSheet5
           TabOrder = 2
           object TabSheet2: TTabSheet
             Caption = 'Pessoa F'#237'sica'
-            ExplicitWidth = 281
-            ExplicitHeight = 100
             object GroupBox4: TGroupBox
               Left = 3
               Top = 3
-              Width = 419
-              Height = 148
+              Width = 451
+              Height = 220
               Caption = 'Pessoa F'#237'sica'
               TabOrder = 0
               object Label5: TLabel
-                Left = 16
+                Left = 10
                 Top = 20
                 Width = 89
                 Height = 13
                 Caption = 'Nome Completo'
               end
               object Label6: TLabel
-                Left = 16
-                Top = 69
+                Left = 10
+                Top = 67
                 Width = 20
                 Height = 13
                 Caption = 'CPF'
               end
               object Label8: TLabel
-                Left = 152
-                Top = 72
+                Left = 146
+                Top = 67
                 Width = 16
                 Height = 13
                 Caption = 'RG'
               end
-              object Edit2: TEdit
-                Left = 16
+              object EdtCadNome: TEdit
+                Left = 10
                 Top = 39
                 Width = 369
                 Height = 21
                 MaxLength = 100
                 TabOrder = 0
               end
-              object MaskEdit1: TMaskEdit
-                Left = 16
-                Top = 88
+              object EdtCadCPF: TMaskEdit
+                Left = 10
+                Top = 83
                 Width = 129
                 Height = 21
                 EditMask = '999.999.999-99'
@@ -180,9 +172,9 @@ object FrmMain: TFrmMain
                 TabOrder = 1
                 Text = '   .   .   -  '
               end
-              object Edit3: TEdit
-                Left = 151
-                Top = 88
+              object EdtCadRG: TEdit
+                Left = 145
+                Top = 83
                 Width = 146
                 Height = 21
                 NumbersOnly = True
@@ -193,53 +185,52 @@ object FrmMain: TFrmMain
           object TabSheet3: TTabSheet
             Caption = 'Pessoa Jur'#237'dica'
             ImageIndex = 1
-            ExplicitHeight = 161
             object GroupBox5: TGroupBox
               Left = 3
-              Top = 3
-              Width = 419
-              Height = 150
+              Top = 0
+              Width = 451
+              Height = 223
               Caption = 'Pessoa Jur'#237'dica'
               TabOrder = 0
               object Label9: TLabel
-                Left = 16
+                Left = 11
                 Top = 22
                 Width = 71
                 Height = 13
                 Caption = 'Raz'#227'o Social'
               end
               object Label10: TLabel
-                Left = 16
+                Left = 11
                 Top = 63
                 Width = 83
                 Height = 13
                 Caption = 'Nome Fantasia'
               end
               object Label7: TLabel
-                Left = 16
+                Left = 11
                 Top = 104
                 Width = 27
                 Height = 13
                 Caption = 'CNPJ'
               end
-              object Edit4: TEdit
-                Left = 16
+              object EdtCadRazaoSocial: TEdit
+                Left = 11
                 Top = 39
                 Width = 369
                 Height = 21
                 MaxLength = 100
                 TabOrder = 0
               end
-              object Edit5: TEdit
-                Left = 16
+              object EdtCadFantasia: TEdit
+                Left = 11
                 Top = 79
                 Width = 369
                 Height = 21
                 MaxLength = 100
                 TabOrder = 1
               end
-              object MaskEdit2: TMaskEdit
-                Left = 16
+              object EdtCadCNPJ: TMaskEdit
+                Left = 11
                 Top = 119
                 Width = 129
                 Height = 21
@@ -253,51 +244,64 @@ object FrmMain: TFrmMain
           object TabSheet4: TTabSheet
             Caption = 'Endere'#231'o'
             ImageIndex = 2
-            ExplicitLeft = 0
             object GroupBox6: TGroupBox
               Left = 3
               Top = 0
-              Width = 419
-              Height = 151
+              Width = 451
+              Height = 223
               Caption = 'Endere'#231'o'
               TabOrder = 0
               object Label11: TLabel
-                Left = 16
-                Top = 24
+                Left = 12
+                Top = 21
                 Width = 52
                 Height = 13
                 Caption = 'Endere'#231'o'
               end
               object Label12: TLabel
-                Left = 16
-                Top = 67
+                Left = 12
+                Top = 66
                 Width = 44
                 Height = 13
                 Caption = 'N'#250'mero'
               end
               object Label13: TLabel
-                Left = 97
-                Top = 65
+                Left = 93
+                Top = 66
                 Width = 20
                 Height = 13
                 Caption = 'CEP'
               end
-              object Edit6: TEdit
-                Left = 16
-                Top = 43
+              object Label14: TLabel
+                Left = 180
+                Top = 66
+                Width = 38
+                Height = 13
+                Caption = 'Cidade'
+              end
+              object Label15: TLabel
+                Left = 259
+                Top = 66
+                Width = 14
+                Height = 13
+                Caption = 'UF'
+              end
+              object EdtCadEndereco: TEdit
+                Left = 12
+                Top = 40
                 Width = 385
                 Height = 21
                 TabOrder = 0
               end
-              object Edit7: TEdit
-                Left = 16
+              object EdtCadNumero: TEdit
+                Left = 12
                 Top = 83
                 Width = 73
                 Height = 21
                 TabOrder = 1
               end
-              object MaskEdit3: TMaskEdit
-                Left = 97
+              object EdtCadCEP: TMaskEdit
+                Left = 93
                 Top = 83
                 Width = 81
                 Height = 21
@@ -305,6 +309,47 @@ object FrmMain: TFrmMain
                 MaxLength = 10
                 TabOrder = 2
                 Text = '  .   -   '
+              end
+              object EdtCadCidade: TEdit
+                Left = 180
+                Top = 83
+                Width = 73
+                Height = 21
+                TabOrder = 3
+              end
+              object EdtCadUF: TEdit
+                Left = 259
+                Top = 83
+                Width = 35
+                Height = 21
+                TabOrder = 4
+              end
+            end
+          end
+          object TabSheet5: TTabSheet
+            Caption = 'Financeiro'
+            ImageIndex = 3
+            object GroupBox7: TGroupBox
+              Left = 0
+              Top = 0
+              Width = 454
+              Height = 223
+              Caption = 'Financeiro'
+              TabOrder = 0
+              object Label16: TLabel
+                Left = 12
+                Top = 24
+                Width = 96
+                Height = 13
+                Caption = 'Limite de Cr'#233'dito'
+              end
+              object EdtCadLimite: TEdit
+                Left = 12
+                Top = 39
+                Width = 109
+                Height = 21
+                TabOrder = 0
+                Text = '0,00'
               end
             end
           end
@@ -314,48 +359,96 @@ object FrmMain: TFrmMain
     object TSConsulta: TTabSheet
       Caption = 'Consulta'
       ImageIndex = 1
-      ExplicitLeft = 8
-      ExplicitTop = 28
-      ExplicitWidth = 670
-      ExplicitHeight = 358
       object Panel1: TPanel
         Left = 0
         Top = 359
-        Width = 592
+        Width = 482
         Height = 32
         Align = alBottom
         TabOrder = 0
-        ExplicitTop = 326
-        ExplicitWidth = 670
       end
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 592
+        Width = 482
         Height = 57
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 670
       end
-      object DBGrid1: TDBGrid
+      object cxGrid1: TcxGrid
         Left = 0
         Top = 57
-        Width = 592
+        Width = 482
         Height = 302
         Align = alClient
         TabOrder = 2
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = [fsBold]
+        object cxGrid1DBTableView1: TcxGridDBTableView
+          Navigator.Buttons.CustomButtons = <>
+          DataController.DataSource = DM.DSConsultaClientes
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+          object cxGrid1DBTableView1cli_codigo: TcxGridDBColumn
+            Caption = 'C'#243'digo'
+            DataBinding.FieldName = 'cli_codigo'
+          end
+          object cxGrid1DBTableView1cli_nome: TcxGridDBColumn
+            Caption = 'Nome'
+            DataBinding.FieldName = 'cli_nome'
+          end
+          object cxGrid1DBTableView1cli_cpf: TcxGridDBColumn
+            Caption = 'CPF'
+            DataBinding.FieldName = 'cli_cpf'
+          end
+          object cxGrid1DBTableView1cli_rg: TcxGridDBColumn
+            Caption = 'RG'
+            DataBinding.FieldName = 'cli_rg'
+          end
+          object cxGrid1DBTableView1cli_cnpj: TcxGridDBColumn
+            Caption = 'CNPJ'
+            DataBinding.FieldName = 'cli_cnpj'
+          end
+          object cxGrid1DBTableView1cli_tipo_pessoa: TcxGridDBColumn
+            Caption = 'Tipo Pessoa'
+            DataBinding.FieldName = 'cli_tipo_pessoa'
+          end
+          object cxGrid1DBTableView1cli_endereco: TcxGridDBColumn
+            Caption = 'Endere'#231'o'
+            DataBinding.FieldName = 'cli_endereco'
+          end
+          object cxGrid1DBTableView1cli_numero: TcxGridDBColumn
+            Caption = 'N'#250'mero'
+            DataBinding.FieldName = 'cli_numero'
+          end
+          object cxGrid1DBTableView1cli_cep: TcxGridDBColumn
+            Caption = 'CEP'
+            DataBinding.FieldName = 'cli_cep'
+          end
+          object cxGrid1DBTableView1cli_cidade: TcxGridDBColumn
+            Caption = 'Cidade'
+            DataBinding.FieldName = 'cli_cidade'
+          end
+          object cxGrid1DBTableView1cli_uf: TcxGridDBColumn
+            Caption = 'UF'
+            DataBinding.FieldName = 'cli_uf'
+          end
+          object cxGrid1DBTableView1cli_limite_credito: TcxGridDBColumn
+            Caption = 'Limite Cr'#233'dito'
+            DataBinding.FieldName = 'cli_limite_credito'
+          end
+          object cxGrid1DBTableView1cli_dthr_cadastro: TcxGridDBColumn
+            Caption = 'Data/Hora Cadastro'
+            DataBinding.FieldName = 'cli_dthr_cadastro'
+          end
+        end
+        object cxGrid1Level1: TcxGridLevel
+          GridView = cxGrid1DBTableView1
+        end
       end
     end
     object TabSheet1: TTabSheet
       Caption = 'Relat'#243'rios'
       ImageIndex = 2
-      ExplicitWidth = 670
-      ExplicitHeight = 358
       object GroupBox1: TGroupBox
         Left = 3
         Top = 0
@@ -504,7 +597,7 @@ object FrmMain: TFrmMain
     Left = 372
     Top = 6
     Bitmap = {
-      494C01010A004400440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A004C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -906,5 +999,9 @@ object FrmMain: TFrmMain
       E0008013001F081FF8008013007F217FF000E7FF00FF08FFE001F7F801FF01FF
       C403FFF803FF03FFEC07FFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  object cxLocalizer: TcxLocalizer
+    Left = 428
+    Top = 8
   end
 end

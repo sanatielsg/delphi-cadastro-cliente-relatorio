@@ -3,10 +3,31 @@ unit u_main;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, u_dm, u_cliente,
-  Data.DB, Vcl.ExtCtrls, Vcl.StdCtrls,
-  System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids, Vcl.Mask;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ComCtrls,
+  u_dm,
+  u_cliente,
+  Data.DB,
+  Vcl.ExtCtrls,
+  Vcl.StdCtrls,
+  System.ImageList,
+  Vcl.ImgList,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.Mask,
+  cxClasses,
+  cxLocalization, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  cxDBData, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGrid;
 
 type
   TFrmMain = class(TForm)
@@ -39,7 +60,6 @@ type
     Button7: TButton;
     Edit1: TEdit;
     Label4: TLabel;
-    DBGrid1: TDBGrid;
     RadioGroup3: TRadioGroup;
     PageControl1: TPageControl;
     TabSheet2: TTabSheet;
@@ -70,6 +90,15 @@ type
     Edit8: TEdit;
     Label15: TLabel;
     Edit9: TEdit;
+    TabSheet5: TTabSheet;
+    GroupBox7: TGroupBox;
+    Label16: TLabel;
+    Edit10: TEdit;
+    cxLocalizer: TcxLocalizer;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -85,5 +114,15 @@ implementation
 {$R *.dfm}
 
 { TFrmMain }
+
+procedure TFrmMain.FormCreate(Sender: TObject);
+begin
+if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
+    begin
+        cxLocalizer.LoadFromFile(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini');
+        cxLocalizer.LanguageIndex := 1; {Muda o idioma / linguagem}
+        cxLocalizer.Active := TRUE;     {Ativa o componente / a tradução}
+    end;
+end;
 
 end.

@@ -43,12 +43,12 @@ type
     BrnRelAniversariantes: TButton;
     GroupBox2: TGroupBox;
     BtnRelCadastral: TButton;
-    RgpRelOrdenacao: TRadioGroup;
-    RgpRelOrdem: TRadioGroup;
+    RadioGroup1: TRadioGroup;
+    RadioGroup2: TRadioGroup;
     GroupBox3: TGroupBox;
-    DTPRelDataIni: TDateTimePicker;
+    DateTimePicker1: TDateTimePicker;
     Label2: TLabel;
-    DTPRelDataFim: TDateTimePicker;
+    DateTimePicker2: TDateTimePicker;
     Label3: TLabel;
     BtnRelAuditoria: TButton;
     Panel3: TPanel;
@@ -112,13 +112,11 @@ type
     GrdConsultaDBTableView1cli_limite_credito: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
-    procedure BtnCadInserirClick(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
-    procedure Inserir();
   end;
 
 var
@@ -130,11 +128,6 @@ implementation
 
 { TFrmMain }
 
-procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
-begin
-  Inserir();
-end;
-
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
 if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
@@ -143,25 +136,6 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
         cxLocalizer.LanguageIndex := 1; {Muda o idioma / linguagem}
         cxLocalizer.Active := TRUE;     {Ativa o componente / a tradução}
     end;
-end;
-
-procedure TFrmMain.Inserir;
-var Cliente : TCliente;
-begin
-  Cliente := TCliente.Create;
-  try
-    try
-      if EdtCadCodigo.Text <> '' then
-        Cliente.Codigo :=  StrToInt(EdtCadCodigo.Text);
-
-
-    except
-      on E:Exception do
-        ShowMessage('Ocorreu um erro ao inserir : '+E.Message);
-    end;
-  finally
-    FreeAndNil(Cliente);
-  end;
 end;
 
 end.

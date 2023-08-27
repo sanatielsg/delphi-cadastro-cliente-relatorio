@@ -38,19 +38,19 @@ type
     Panel2: TPanel;
     TabSheet1: TTabSheet;
     GroupBox1: TGroupBox;
-    CbxRelMes: TComboBox;
+    ComboBox1: TComboBox;
     Label1: TLabel;
-    BrnRelAniversariantes: TButton;
+    Button1: TButton;
     GroupBox2: TGroupBox;
-    BtnRelCadastral: TButton;
-    RgpRelOrdenacao: TRadioGroup;
-    RgpRelOrdem: TRadioGroup;
+    Button2: TButton;
+    RadioGroup1: TRadioGroup;
+    RadioGroup2: TRadioGroup;
     GroupBox3: TGroupBox;
-    DTPRelDataIni: TDateTimePicker;
+    DateTimePicker1: TDateTimePicker;
     Label2: TLabel;
-    DTPRelDataFim: TDateTimePicker;
+    DateTimePicker2: TDateTimePicker;
     Label3: TLabel;
-    BtnRelAuditoria: TButton;
+    Button3: TButton;
     Panel3: TPanel;
     Panel4: TPanel;
     BtnCadInserir: TButton;
@@ -81,44 +81,42 @@ type
     TabSheet4: TTabSheet;
     GroupBox6: TGroupBox;
     Label11: TLabel;
-    EdtCadEndereco: TEdit;
+    Edit6: TEdit;
     Label12: TLabel;
-    EdtCadNumero: TEdit;
-    EdtCadCEP: TMaskEdit;
+    Edit7: TEdit;
+    MaskEdit3: TMaskEdit;
     Label13: TLabel;
     Label14: TLabel;
-    EdtCadCidade: TEdit;
+    Edit8: TEdit;
     Label15: TLabel;
-    EdtCadUF: TEdit;
+    Edit9: TEdit;
     TabSheet5: TTabSheet;
     GroupBox7: TGroupBox;
     Label16: TLabel;
-    EdtCadLimite: TEdit;
+    Edit10: TEdit;
     cxLocalizer: TcxLocalizer;
-    GrdConsultaDBTableView1: TcxGridDBTableView;
-    GrdConsultaLevel1: TcxGridLevel;
-    GrdConsulta: TcxGrid;
-    GrdConsultaDBTableView1cli_codigo: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_nome: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_cpf: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_rg: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_cnpj: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_tipo_pessoa: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_endereco: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_numero: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_cep: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_cidade: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_uf: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_limite_credito: TcxGridDBColumn;
-    GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    cxGrid1DBTableView1cli_codigo: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_nome: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_cpf: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_rg: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_cnpj: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_tipo_pessoa: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_endereco: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_numero: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_cep: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_cidade: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_uf: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_limite_credito: TcxGridDBColumn;
+    cxGrid1DBTableView1cli_dthr_cadastro: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
-    procedure BtnCadInserirClick(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
-    procedure Inserir();
   end;
 
 var
@@ -130,11 +128,6 @@ implementation
 
 { TFrmMain }
 
-procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
-begin
-  Inserir();
-end;
-
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
 if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
@@ -143,25 +136,6 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
         cxLocalizer.LanguageIndex := 1; {Muda o idioma / linguagem}
         cxLocalizer.Active := TRUE;     {Ativa o componente / a tradução}
     end;
-end;
-
-procedure TFrmMain.Inserir;
-var Cliente : TCliente;
-begin
-  Cliente := TCliente.Create;
-  try
-    try
-      if EdtCadCodigo.Text <> '' then
-        Cliente.Codigo :=  StrToInt(EdtCadCodigo.Text);
-
-
-    except
-      on E:Exception do
-        ShowMessage('Ocorreu um erro ao inserir : '+E.Message);
-    end;
-  finally
-    FreeAndNil(Cliente);
-  end;
 end;
 
 end.

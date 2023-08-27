@@ -8,6 +8,7 @@ object DM: TDM
       'User_Name=postgres'
       'Password=Super@321'
       'DriverID=PG')
+    Connected = True
     LoginPrompt = False
     Left = 40
     Top = 72
@@ -92,10 +93,5 @@ object DM: TDM
       FieldName = 'cli_dthr_cadastro'
       Origin = 'cli_dthr_cadastro'
     end
-  end
-  object DSConsultaClientes: TDataSource
-    DataSet = QryConsultaClientes
-    Left = 168
-    Top = 216
   end
 end

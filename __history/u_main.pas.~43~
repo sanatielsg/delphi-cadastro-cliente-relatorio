@@ -151,9 +151,6 @@ begin
   Cliente := TCliente.Create;
   try
     try
-      if EdtCadCodigo.Text <> '' then
-        Cliente.Codigo :=  StrToInt(EdtCadCodigo.Text);
-
 
     except
       on E:Exception do

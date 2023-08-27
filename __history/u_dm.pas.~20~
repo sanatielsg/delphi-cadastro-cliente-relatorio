@@ -29,7 +29,6 @@ type
     QryConsultaClientescli_uf: TWideStringField;
     QryConsultaClientescli_limite_credito: TBCDField;
     QryConsultaClientescli_dthr_cadastro: TSQLTimeStampField;
-    DSConsultaClientes: TDataSource;
   private
     { Private declarations }
   public
