@@ -112,20 +112,26 @@ type
     GrdConsultaDBTableView1cli_uf: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_limite_credito: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
-    DTPDataNascimento: TDateTimePicker;
+    DTPCadDataNascimento: TDateTimePicker;
     Label17: TLabel;
+    PnlNavegador: TPanel;
     BtnCadAnterior: TButton;
+    BtnCadPrimeiro: TButton;
     BtnCadProximo: TButton;
     BtnCadUltimo: TButton;
-    BtnCadPrimeiro: TButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
+    procedure BtnCadUltimoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
     procedure Inserir();
+    procedure Proximo();
+    procedure GetCliente(Value: integer);
+    procedure Navegacao();
   end;
 
 var
@@ -142,6 +148,11 @@ begin
   Inserir();
 end;
 
+procedure TFrmMain.BtnCadUltimoClick(Sender: TObject);
+begin
+  Proximo();
+end;
+
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
 if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
@@ -150,6 +161,45 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
         cxLocalizer.LanguageIndex := 1; {Muda o idioma / linguagem}
         cxLocalizer.Active := TRUE;     {Ativa o componente / a tradução}
     end;
+end;
+
+procedure TFrmMain.FormShow(Sender: TObject);
+begin
+  Navegacao;
+end;
+
+procedure TFrmMain.GetCliente(Value : integer);
+  var Cliente :TCliente;
+begin
+  Cliente := TCliente.Create;
+  try
+     Cliente := DM.Get(Value);
+     if Cliente <> Nil then
+     begin
+       with Cliente do
+       begin
+         EdtCadCodigo.Text := IntToStr(Codigo);
+         RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+         if TipoPessoa = 1 then
+         begin
+           EdtCadNome.Text           := Nome;
+           EdtCadCPF.Text            := CPF;
+           EdtCadRG.Text             := RG;
+           DTPCadDataNascimento.Date := DataNascimento;
+         end
+         else if TipoPessoa = 2 then
+         begin
+           EdtCadRazaoSocial.Text := RazaoSocial;
+           EdtCadFantasia.Text := NomeFantasia;
+           EdtCadCNPJ.Text := CNPJ;
+         end;
+
+
+       end;
+     end;
+  finally
+    FreeAndNil(Cliente);
+  end;
 end;
 
 procedure TFrmMain.Inserir;
@@ -174,7 +224,7 @@ begin
         UF         := EdtCadUF.Text;
         if EdtCadLimite.Text <> '' then
           LimiteCredito := StrToFloat(EdtCadLimite.Text);
-        DataNascimento := DTPDataNascimento.Date;
+        DataNascimento := DTPCadDataNascimento.Date;
       end;
       if (Cliente.Codigo = 0) then
         DM.Inserir(Cliente)
@@ -188,6 +238,19 @@ begin
   finally
     FreeAndNil(Cliente);
   end;
+end;
+
+procedure TFrmMain.Navegacao;
+begin
+  PnlNavegador.Enabled := True;
+end;
+
+procedure TFrmMain.Proximo;
+  var proximo : integer;
+begin
+  if EdtCadCodigo.Text = '' then
+    proximo := 1 else proximo := StrToInt(EdtCadCodigo.Text) + 1;
+  GetCliente(proximo);
 end;
 
 end.

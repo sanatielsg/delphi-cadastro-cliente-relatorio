@@ -32,7 +32,6 @@ object FrmMain: TFrmMain
         Height = 65
         Align = alTop
         TabOrder = 0
-        ExplicitTop = -6
         object BtnCadInserir: TButton
           Left = 82
           Top = 4
@@ -118,6 +117,7 @@ object FrmMain: TFrmMain
           ImageIndex = 6
           Images = ImageList
           TabOrder = 6
+          OnClick = BtnCadUltimoClick
         end
         object BtnCadPrimeiro: TButton
           Left = 324
@@ -174,16 +174,16 @@ object FrmMain: TFrmMain
           Width = 465
           Height = 254
           ActivePage = TabSheet2
-          Enabled = False
           TabOrder = 2
           object TabSheet2: TTabSheet
             Caption = 'Pessoa F'#237'sica'
-            object GroupBox4: TGroupBox
+            object GbxCadPF: TGroupBox
               Left = 3
               Top = 3
               Width = 451
               Height = 220
               Caption = 'Pessoa F'#237'sica'
+              Enabled = False
               TabOrder = 0
               object Label5: TLabel
                 Left = 10
@@ -253,12 +253,13 @@ object FrmMain: TFrmMain
           object TabSheet3: TTabSheet
             Caption = 'Pessoa Jur'#237'dica'
             ImageIndex = 1
-            object GroupBox5: TGroupBox
+            object GbxCadPJ: TGroupBox
               Left = 3
               Top = 0
               Width = 451
               Height = 223
               Caption = 'Pessoa Jur'#237'dica'
+              Enabled = False
               TabOrder = 0
               object Label9: TLabel
                 Left = 11
@@ -312,7 +313,7 @@ object FrmMain: TFrmMain
           object TabSheet4: TTabSheet
             Caption = 'Endere'#231'o'
             ImageIndex = 2
-            object GroupBox6: TGroupBox
+            object GbxCadEndereco: TGroupBox
               Left = 3
               Top = 0
               Width = 451
@@ -397,7 +398,7 @@ object FrmMain: TFrmMain
           object TabSheet5: TTabSheet
             Caption = 'Financeiro'
             ImageIndex = 3
-            object GroupBox7: TGroupBox
+            object GbxCadFinanceiro: TGroupBox
               Left = 0
               Top = 0
               Width = 454
@@ -456,6 +457,10 @@ object FrmMain: TFrmMain
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
+          OptionsData.Deleting = False
+          OptionsData.DeletingConfirmation = False
+          OptionsData.Editing = False
+          OptionsData.Inserting = False
           object GrdConsultaDBTableView1cli_codigo: TcxGridDBColumn
             Caption = 'C'#243'digo'
             DataBinding.FieldName = 'cli_codigo'
@@ -665,7 +670,7 @@ object FrmMain: TFrmMain
     Left = 428
     Top = 65534
     Bitmap = {
-      494C010112006800680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112006C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

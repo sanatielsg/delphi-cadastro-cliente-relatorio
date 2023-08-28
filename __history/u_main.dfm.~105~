@@ -32,7 +32,6 @@ object FrmMain: TFrmMain
         Height = 65
         Align = alTop
         TabOrder = 0
-        ExplicitTop = -6
         object BtnCadInserir: TButton
           Left = 82
           Top = 4
@@ -109,7 +108,7 @@ object FrmMain: TFrmMain
           TabOrder = 5
         end
         object BtnCadUltimo: TButton
-          Left = 432
+          Left = 433
           Top = 19
           Width = 34
           Height = 29
@@ -118,6 +117,7 @@ object FrmMain: TFrmMain
           ImageIndex = 6
           Images = ImageList
           TabOrder = 6
+          OnClick = BtnCadUltimoClick
         end
         object BtnCadPrimeiro: TButton
           Left = 324
@@ -239,7 +239,7 @@ object FrmMain: TFrmMain
                 NumbersOnly = True
                 TabOrder = 2
               end
-              object DTPDataNascimento: TDateTimePicker
+              object DTPCadDataNascimento: TDateTimePicker
                 Left = 10
                 Top = 131
                 Width = 118
@@ -457,6 +457,10 @@ object FrmMain: TFrmMain
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
+          OptionsData.Deleting = False
+          OptionsData.DeletingConfirmation = False
+          OptionsData.Editing = False
+          OptionsData.Inserting = False
           object GrdConsultaDBTableView1cli_codigo: TcxGridDBColumn
             Caption = 'C'#243'digo'
             DataBinding.FieldName = 'cli_codigo'
@@ -666,7 +670,7 @@ object FrmMain: TFrmMain
     Left = 428
     Top = 65534
     Bitmap = {
-      494C010112006800680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112006C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -15,11 +15,28 @@ type
     Conn: TFDConnection;
     FDPhysPgDriverLink: TFDPhysPgDriverLink;
     Query: TFDQuery;
+    QryConsultaClientes: TFDQuery;
+    QryConsultaClientescli_codigo: TIntegerField;
+    QryConsultaClientescli_nome: TWideStringField;
+    QryConsultaClientescli_cpf: TWideStringField;
+    QryConsultaClientescli_rg: TWideStringField;
+    QryConsultaClientescli_cnpj: TWideStringField;
+    QryConsultaClientescli_tipo_pessoa: TIntegerField;
+    QryConsultaClientescli_endereco: TWideStringField;
+    QryConsultaClientescli_numero: TWideStringField;
+    QryConsultaClientescli_cep: TWideStringField;
+    QryConsultaClientescli_cidade: TWideStringField;
+    QryConsultaClientescli_uf: TWideStringField;
+    QryConsultaClientescli_limite_credito: TBCDField;
+    QryConsultaClientescli_dthr_cadastro: TSQLTimeStampField;
+    DSConsultaClientes: TDataSource;
   private
     { Private declarations }
   public
     { Public declarations }
     function Inserir(Value : TCliente): Integer;
+    function Alterar(Value : TCliente): Integer;
+    function Get(Value : integer): TCliente;
   end;
 
 var
@@ -32,6 +49,34 @@ implementation
 {$R *.dfm}
 
 { TDM }
+
+function TDM.Alterar(Value: TCliente): Integer;
+begin
+
+end;
+
+function TDM.Get(Value: integer): TCliente;
+  var sqlTmp : string;
+      Client : TCliente;
+begin
+  Result := Nil;
+  Client := TCliente.Create;
+  sqlTmp := 'select * from cliente where cli_codigo = :cli_codigo ';
+
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    ParamByName('cli_codigo').AsInteger := Value;
+    Open();
+    if RecordCount > 0 then
+    begin
+
+    end else Result := Nil;
+  end;
+
+end;
 
 function TDM.Inserir(Value: TCliente): Integer;
   var sql : string;

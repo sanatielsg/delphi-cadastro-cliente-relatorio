@@ -15,11 +15,28 @@ type
     Conn: TFDConnection;
     FDPhysPgDriverLink: TFDPhysPgDriverLink;
     Query: TFDQuery;
+    QryConsultaClientes: TFDQuery;
+    QryConsultaClientescli_codigo: TIntegerField;
+    QryConsultaClientescli_nome: TWideStringField;
+    QryConsultaClientescli_cpf: TWideStringField;
+    QryConsultaClientescli_rg: TWideStringField;
+    QryConsultaClientescli_cnpj: TWideStringField;
+    QryConsultaClientescli_tipo_pessoa: TIntegerField;
+    QryConsultaClientescli_endereco: TWideStringField;
+    QryConsultaClientescli_numero: TWideStringField;
+    QryConsultaClientescli_cep: TWideStringField;
+    QryConsultaClientescli_cidade: TWideStringField;
+    QryConsultaClientescli_uf: TWideStringField;
+    QryConsultaClientescli_limite_credito: TBCDField;
+    QryConsultaClientescli_dthr_cadastro: TSQLTimeStampField;
+    DSConsultaClientes: TDataSource;
   private
     { Private declarations }
   public
     { Public declarations }
     function Inserir(Value : TCliente): Integer;
+    function Alterar(Value : TCliente): Integer;
+    function Get(Value : integer): TCliente;
   end;
 
 var
@@ -32,6 +49,20 @@ implementation
 {$R *.dfm}
 
 { TDM }
+
+function TDM.Alterar(Value: TCliente): Integer;
+begin
+
+end;
+
+function TDM.Get(Value: integer): TCliente;
+  var sql : string;
+begin
+  Result := Nil;
+
+
+
+end;
 
 function TDM.Inserir(Value: TCliente): Integer;
   var sql : string;
@@ -66,9 +97,16 @@ begin
     with Query do
     begin
       ParamByName('cli_nome').AsString := Value.Nome;
-
-
-
+      ParamByName('cli_cpf').AsString := Value.Nome;
+      ParamByName('cli_rg').AsString := Value.Nome;
+      ParamByName('cli_cnpj').AsString := Value.Nome;
+      ParamByName('cli_tipo_pessoa').AsString    := Value.Nome;
+      ParamByName('cli_endereco').AsString       := Value.Nome;
+      ParamByName('cli_numero').AsString         := Value.Nome;
+      ParamByName('cli_cep').AsString            := Value.Nome;
+      ParamByName('cli_cidade').AsString         := Value.Nome;
+      ParamByName('cli_uf').AsString             := Value.Nome;
+      ParamByName('cli_limite_credito').AsString := Value.Nome;
     end;
 
   finally

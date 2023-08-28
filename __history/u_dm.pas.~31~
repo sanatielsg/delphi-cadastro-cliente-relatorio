@@ -29,11 +29,14 @@ type
     QryConsultaClientescli_uf: TWideStringField;
     QryConsultaClientescli_limite_credito: TBCDField;
     QryConsultaClientescli_dthr_cadastro: TSQLTimeStampField;
+    DSConsultaClientes: TDataSource;
   private
     { Private declarations }
   public
     { Public declarations }
     function Inserir(Value : TCliente): Integer;
+    function Alterar(Value : TCliente): Integer;
+    function Get(Value : integer): TCliente;
   end;
 
 var
@@ -46,6 +49,34 @@ implementation
 {$R *.dfm}
 
 { TDM }
+
+function TDM.Alterar(Value: TCliente): Integer;
+begin
+
+end;
+
+function TDM.Get(Value: integer): TCliente;
+  var sqlTmp : string;
+      Cliente : TCliente;
+begin
+  Cliente := TCliente.Create;
+  Cliente := Nil;
+  sqlTmp := 'select * from cliente where cli_codigo = :cli_codigo ';
+
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    ParamByName('cli_codigo').AsInteger := Value;
+    Open();
+    if RecordCount > 0 then
+    begin
+
+    end;
+  end;
+  Result := Cliente;
+end;
 
 function TDM.Inserir(Value: TCliente): Integer;
   var sql : string;

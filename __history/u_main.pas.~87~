@@ -65,14 +65,14 @@ type
     PageControl1: TPageControl;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
-    GroupBox4: TGroupBox;
+    GbxCadPF: TGroupBox;
     Label5: TLabel;
     Label6: TLabel;
     Label8: TLabel;
     EdtCadNome: TEdit;
     EdtCadCPF: TMaskEdit;
     EdtCadRG: TEdit;
-    GroupBox5: TGroupBox;
+    GbxCadPJ: TGroupBox;
     Label9: TLabel;
     Label10: TLabel;
     Label7: TLabel;
@@ -80,7 +80,7 @@ type
     EdtCadFantasia: TEdit;
     EdtCadCNPJ: TMaskEdit;
     TabSheet4: TTabSheet;
-    GroupBox6: TGroupBox;
+    GbxCadEndereco: TGroupBox;
     Label11: TLabel;
     EdtCadEndereco: TEdit;
     Label12: TLabel;
@@ -92,7 +92,7 @@ type
     Label15: TLabel;
     EdtCadUF: TEdit;
     TabSheet5: TTabSheet;
-    GroupBox7: TGroupBox;
+    GbxCadFinanceiro: TGroupBox;
     Label16: TLabel;
     EdtCadLimite: TEdit;
     cxLocalizer: TcxLocalizer;
@@ -112,7 +112,7 @@ type
     GrdConsultaDBTableView1cli_uf: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_limite_credito: TcxGridDBColumn;
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
-    DTPDataNascimento: TDateTimePicker;
+    DTPCadDataNascimento: TDateTimePicker;
     Label17: TLabel;
     BtnCadAnterior: TButton;
     BtnCadProximo: TButton;
@@ -120,12 +120,15 @@ type
     BtnCadPrimeiro: TButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
+    procedure BtnCadUltimoClick(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
     procedure Inserir();
+    procedure Proximo();
+    procedure GetCliente(Value: integer);
   end;
 
 var
@@ -142,6 +145,11 @@ begin
   Inserir();
 end;
 
+procedure TFrmMain.BtnCadUltimoClick(Sender: TObject);
+begin
+  Proximo();
+end;
+
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
 if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
@@ -150,6 +158,40 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
         cxLocalizer.LanguageIndex := 1; {Muda o idioma / linguagem}
         cxLocalizer.Active := TRUE;     {Ativa o componente / a tradução}
     end;
+end;
+
+procedure TFrmMain.GetCliente(Value : integer);
+  var Cliente :TCliente;
+begin
+  Cliente := TCliente.Create;
+  try
+     Cliente := DM.Get(proximo);
+     if Cliente <> Nil then
+     begin
+       with Cliente do
+       begin
+         EdtCadCodigo.Text := IntToStr(Codigo);
+         RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+         if TipoPessoa = 1 then
+         begin
+           EdtCadNome.Text           := Nome;
+           EdtCadCPF.Text            := CPF;
+           EdtCadRG.Text             := RG;
+           DTPCadDataNascimento.Date := DataNascimento;
+         end
+         else if TipoPessoa = 2 then
+         begin
+           EdtCadRazaoSocial.Text := RazaoSocial;
+           EdtCadFantasia.Text := NomeFantasia;
+           EdtCadCNPJ.Text := CNPJ;
+         end;
+
+
+       end;
+     end;
+  finally
+    FreeAndNil(Cliente);
+  end;
 end;
 
 procedure TFrmMain.Inserir;
@@ -174,7 +216,7 @@ begin
         UF         := EdtCadUF.Text;
         if EdtCadLimite.Text <> '' then
           LimiteCredito := StrToFloat(EdtCadLimite.Text);
-        DataNascimento := DTPDataNascimento.Date;
+        DataNascimento := DTPCadDataNascimento.Date;
       end;
       if (Cliente.Codigo = 0) then
         DM.Inserir(Cliente)
@@ -185,6 +227,43 @@ begin
       on E:Exception do
         ShowMessage('Ocorreu um erro ao inserir : '+E.Message);
     end;
+  finally
+    FreeAndNil(Cliente);
+  end;
+end;
+
+procedure TFrmMain.Proximo;
+  var Cliente :TCliente;
+      proximo : integer;
+begin
+  if EdtCadCodigo.Text = '' then
+    proximo := 1 else proximo := StrToInt(EdtCadCodigo.Text) + 1;
+  Cliente := TCliente.Create;
+  try
+     Cliente := DM.Get(proximo);
+     if Cliente <> Nil then
+     begin
+       with Cliente do
+       begin
+         EdtCadCodigo.Text := IntToStr(Codigo);
+         RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+         if TipoPessoa = 1 then
+         begin
+           EdtCadNome.Text           := Nome;
+           EdtCadCPF.Text            := CPF;
+           EdtCadRG.Text             := RG;
+           DTPCadDataNascimento.Date := DataNascimento;
+         end
+         else if TipoPessoa = 2 then
+         begin
+           EdtCadRazaoSocial.Text := RazaoSocial;
+           EdtCadFantasia.Text := NomeFantasia;
+           EdtCadCNPJ.Text := CNPJ;
+         end;
+
+
+       end;
+     end;
   finally
     FreeAndNil(Cliente);
   end;
