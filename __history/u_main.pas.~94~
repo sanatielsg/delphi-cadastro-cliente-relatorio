@@ -122,6 +122,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
     procedure BtnCadUltimoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
     { Private declarations }
@@ -162,10 +163,14 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
     end;
 end;
 
+procedure TFrmMain.FormShow(Sender: TObject);
+begin
+  Navegacao;
+end;
+
 procedure TFrmMain.GetCliente(Value : integer);
   var Cliente :TCliente;
 begin
-  Cliente := TCliente.Create;
   try
      Cliente := DM.Get(Value);
      if Cliente <> Nil then
@@ -187,12 +192,17 @@ begin
            EdtCadFantasia.Text := NomeFantasia;
            EdtCadCNPJ.Text := CNPJ;
          end;
-
+         EdtCadEndereco.Text := Endereco;
+         EdtCadNumero.Text   := Numero;
+         EdtCadCidade.Text   := Cidade;
+         EdtCadUF.Text       := UF;
+         EdtCadLimite.Text   := Limite
 
        end;
      end;
   finally
-    FreeAndNil(Cliente);
+    if Cliente <> Nil then
+      FreeAndNil(Cliente);
   end;
 end;
 
@@ -236,7 +246,7 @@ end;
 
 procedure TFrmMain.Navegacao;
 begin
-
+  PnlNavegador.Enabled := True;
 end;
 
 procedure TFrmMain.Proximo;

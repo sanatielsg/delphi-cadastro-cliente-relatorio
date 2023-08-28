@@ -13,6 +13,7 @@ object FrmMain: TFrmMain
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PgcMain: TPageControl
@@ -32,7 +33,6 @@ object FrmMain: TFrmMain
         Height = 65
         Align = alTop
         TabOrder = 0
-        ExplicitTop = -6
         object BtnCadInserir: TButton
           Left = 82
           Top = 4
@@ -86,49 +86,53 @@ object FrmMain: TFrmMain
           Images = ImageList
           TabOrder = 3
         end
-        object BtnCadAnterior: TButton
-          Left = 359
-          Top = 19
-          Width = 34
-          Height = 29
+        object PnlNavegador: TPanel
+          Left = 319
+          Top = 5
+          Width = 160
+          Height = 56
           Enabled = False
-          ImageAlignment = iaCenter
-          ImageIndex = 8
-          Images = ImageList
           TabOrder = 4
-        end
-        object BtnCadProximo: TButton
-          Left = 396
-          Top = 19
-          Width = 34
-          Height = 29
-          Enabled = False
-          ImageAlignment = iaCenter
-          ImageIndex = 10
-          Images = ImageList
-          TabOrder = 5
-        end
-        object BtnCadUltimo: TButton
-          Left = 432
-          Top = 19
-          Width = 34
-          Height = 29
-          Enabled = False
-          ImageAlignment = iaCenter
-          ImageIndex = 6
-          Images = ImageList
-          TabOrder = 6
-        end
-        object BtnCadPrimeiro: TButton
-          Left = 324
-          Top = 19
-          Width = 34
-          Height = 29
-          Enabled = False
-          ImageAlignment = iaCenter
-          ImageIndex = 4
-          Images = ImageList
-          TabOrder = 7
+          object BtnCadAnterior: TButton
+            Left = 45
+            Top = 15
+            Width = 34
+            Height = 29
+            ImageAlignment = iaCenter
+            ImageIndex = 8
+            Images = ImageList
+            TabOrder = 0
+          end
+          object BtnCadPrimeiro: TButton
+            Left = 9
+            Top = 15
+            Width = 34
+            Height = 29
+            ImageAlignment = iaCenter
+            ImageIndex = 4
+            Images = ImageList
+            TabOrder = 1
+          end
+          object BtnCadProximo: TButton
+            Left = 82
+            Top = 15
+            Width = 34
+            Height = 29
+            ImageAlignment = iaCenter
+            ImageIndex = 10
+            Images = ImageList
+            TabOrder = 2
+          end
+          object BtnCadUltimo: TButton
+            Left = 118
+            Top = 15
+            Width = 34
+            Height = 29
+            ImageAlignment = iaCenter
+            ImageIndex = 6
+            Images = ImageList
+            TabOrder = 3
+          end
         end
       end
       object Panel4: TPanel
@@ -173,7 +177,7 @@ object FrmMain: TFrmMain
           Top = 66
           Width = 465
           Height = 254
-          ActivePage = TabSheet2
+          ActivePage = TabSheet4
           TabOrder = 2
           object TabSheet2: TTabSheet
             Caption = 'Pessoa F'#237'sica'
@@ -239,7 +243,7 @@ object FrmMain: TFrmMain
                 NumbersOnly = True
                 TabOrder = 2
               end
-              object DTPDataNascimento: TDateTimePicker
+              object DTPCadDataNascimento: TDateTimePicker
                 Left = 10
                 Top = 131
                 Width = 118
@@ -667,10 +671,10 @@ object FrmMain: TFrmMain
     end
   end
   object ImageList: TImageList
-    Left = 428
-    Top = 65534
+    Left = 156
+    Top = 102
     Bitmap = {
-      494C010112006800680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112006C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1338,6 +1342,7 @@ object FrmMain: TFrmMain
       000000000000}
   end
   object cxLocalizer: TcxLocalizer
-    Left = 356
+    Left = 212
+    Top = 120
   end
 end

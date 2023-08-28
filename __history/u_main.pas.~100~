@@ -114,21 +114,27 @@ type
     GrdConsultaDBTableView1cli_dthr_cadastro: TcxGridDBColumn;
     DTPCadDataNascimento: TDateTimePicker;
     Label17: TLabel;
+    PnlNavegador: TPanel;
     BtnCadAnterior: TButton;
+    BtnCadPrimeiro: TButton;
     BtnCadProximo: TButton;
     BtnCadUltimo: TButton;
-    BtnCadPrimeiro: TButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
-    procedure BtnCadUltimoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
     procedure Inserir();
-    procedure Proximo();
     procedure GetCliente(Value: integer);
+    procedure Navegacao();
+    procedure NavegarProximo();
+    procedure NavegarUltimo();
+    procedure NavegarPrimeiro();
+    procedure NavegarAnterior();
+
   end;
 
 var
@@ -145,11 +151,6 @@ begin
   Inserir();
 end;
 
-procedure TFrmMain.BtnCadUltimoClick(Sender: TObject);
-begin
-  Proximo();
-end;
-
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
 if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
@@ -160,10 +161,14 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
     end;
 end;
 
+procedure TFrmMain.FormShow(Sender: TObject);
+begin
+  Navegacao;
+end;
+
 procedure TFrmMain.GetCliente(Value : integer);
   var Cliente :TCliente;
 begin
-  Cliente := TCliente.Create;
   try
      Cliente := DM.Get(Value);
      if Cliente <> Nil then
@@ -185,12 +190,17 @@ begin
            EdtCadFantasia.Text := NomeFantasia;
            EdtCadCNPJ.Text := CNPJ;
          end;
-
-
+         EdtCadEndereco.Text := Endereco;
+         EdtCadNumero.Text   := Numero;
+         EdtCadCEP.Text      := CEP;
+         EdtCadCidade.Text   := Cidade;
+         EdtCadUF.Text       := UF;
+         EdtCadLimite.Text   := FloatToStr(LimiteCredito);
        end;
      end;
   finally
-    FreeAndNil(Cliente);
+    if Cliente <> Nil then
+      FreeAndNil(Cliente);
   end;
 end;
 
@@ -232,12 +242,32 @@ begin
   end;
 end;
 
-procedure TFrmMain.Proximo;
+procedure TFrmMain.Navegacao;
+begin
+  PnlNavegador.Enabled := True;
+end;
+
+procedure TFrmMain.NavegarAnterior;
+begin
+
+end;
+
+procedure TFrmMain.NavegarPrimeiro;
+begin
+
+end;
+
+procedure TFrmMain.NavegarProximo;
   var proximo : integer;
 begin
   if EdtCadCodigo.Text = '' then
     proximo := 1 else proximo := StrToInt(EdtCadCodigo.Text) + 1;
   GetCliente(proximo);
+end;
+
+procedure TFrmMain.NavegarUltimo;
+begin
+
 end;
 
 end.

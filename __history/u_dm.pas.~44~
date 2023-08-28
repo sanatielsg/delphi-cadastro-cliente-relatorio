@@ -37,6 +37,11 @@ type
     function Inserir(Value : TCliente): Integer;
     function Alterar(Value : TCliente): Integer;
     function Get(Value : integer): TCliente;
+
+    function GetUltimo : integer;
+    function GetProximo : integer;
+    function GetAnterior : integer;
+    function GetPrimeiro : integer;
   end;
 
 var
@@ -56,7 +61,63 @@ begin
 end;
 
 function TDM.Get(Value: integer): TCliente;
+  var sqlTmp : string;
+      Cliente : TCliente;
 begin
+  Cliente := Nil;
+  sqlTmp := 'select * from cliente where cli_codigo = :cli_codigo ';
+
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    ParamByName('cli_codigo').AsInteger := Value;
+    Open();
+    if RecordCount > 0 then
+    begin
+      Cliente := TCliente.Create;
+      Cliente.TipoPessoa     := FieldByName('cli_tipo_pessoa').AsInteger;
+      Cliente.Codigo         := FieldByName('cli_codigo').AsInteger;
+      Cliente.Nome           := FieldByName('cli_nome').AsString;
+      Cliente.CPF            := FieldByName('cli_cpf').AsString;
+      Cliente.RG             := FieldByName('cli_rg').AsString;
+      Cliente.DataNascimento := FieldByName('cli_data_nascimento').AsDateTime;
+      Cliente.RazaoSocial    := FieldByName('cli_razao_social').AsString;
+      Cliente.NomeFantasia   := FieldByName('cli_nome_fantasia').AsString;
+      Cliente.CNPJ           := FieldByName('cli_cnpj').AsString;
+      Cliente.Endereco       := FieldByName('cli_endereco').AsString;
+      Cliente.Numero         := FieldByName('cli_numero').AsString;
+      Cliente.CEP            := FieldByName('cli_cep').AsString;
+      Cliente.Cidade         := FieldByName('cli_cidade').AsString;
+      Cliente.UF             := FieldByName('cli_uf').AsString;
+      Cliente.LimiteCredito  := FieldByName('cli_limite_credito').AsFloat;
+    end;
+  end;
+  Result := Cliente;
+end;
+
+function TDM.GetAnterior: integer;
+begin
+
+end;
+
+function TDM.GetPrimeiro: integer;
+  var sqlTmp : string;
+begin
+  sqlTmp := 'select min(cli_codigo) as r from cliente';
+
+end;
+
+function TDM.GetProximo: integer;
+begin
+
+end;
+
+function TDM.GetUltimo: integer;
+  var sqlTmp : string;
+begin
+  sqlTmp := 'select max(cli_codigo) as r from cliente';
 
 end;
 

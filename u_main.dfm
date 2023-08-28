@@ -102,6 +102,7 @@ object FrmMain: TFrmMain
             ImageIndex = 8
             Images = ImageList
             TabOrder = 0
+            OnClick = BtnCadAnteriorClick
           end
           object BtnCadPrimeiro: TButton
             Left = 9
@@ -112,6 +113,7 @@ object FrmMain: TFrmMain
             ImageIndex = 4
             Images = ImageList
             TabOrder = 1
+            OnClick = BtnCadPrimeiroClick
           end
           object BtnCadProximo: TButton
             Left = 82
@@ -122,9 +124,10 @@ object FrmMain: TFrmMain
             ImageIndex = 10
             Images = ImageList
             TabOrder = 2
+            OnClick = BtnCadProximoClick
           end
           object BtnCadUltimo: TButton
-            Left = 118
+            Left = 119
             Top = 15
             Width = 34
             Height = 29
