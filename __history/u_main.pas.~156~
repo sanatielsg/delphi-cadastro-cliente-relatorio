@@ -124,22 +124,34 @@ type
     procedure FormShow(Sender: TObject);
     procedure BtnCadProximoClick(Sender: TObject);
     procedure BtnCadAnteriorClick(Sender: TObject);
+    procedure BtnCadNovoClick(Sender: TObject);
+    procedure BtnCadCancelarClick(Sender: TObject);
+    procedure GrdConsultaDBTableView1DblClick(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
-    procedure Inserir();
+    procedure InserirOuAlterar();
     procedure GetCliente(Value: integer);
     procedure GetProximoCliente(Value: integer);
     procedure GetAnteriorCliente(Value: integer);
     procedure ResetarCampos();
     procedure Resetar(Value : TGroupBox);
+    procedure ResetarForm();
+    procedure EstadoBotoes(Value : integer);
 
   end;
 
 var
   FrmMain: TFrmMain;
+
+const
+  BOTAO_NOVO      = 1;
+  BOTAO_INSERIR   = 2;
+  BOTAO_EXCLUIR   = 3;
+  BOTAO_CANCELAR  = 4;
+  BOTAO_CONSULTAR = 5;
 
 implementation
 
@@ -150,25 +162,57 @@ implementation
 procedure TFrmMain.BtnCadAnteriorClick(Sender: TObject);
   var pos: integer;
 begin
-  Resetar(GbxCadPF);
+  ResetarForm;
+
   if EdtCadCodigo.Text <> '' then
     GetAnteriorCliente(StrToInt(EdtCadCodigo.Text))
   else
     GetAnteriorCliente(999999999);
 end;
+procedure TFrmMain.BtnCadCancelarClick(Sender: TObject);
+begin
+ EstadoBotoes(BOTAO_CANCELAR);
+end;
+
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
 begin
-  Inserir();
+//  InserirOuAlterar();
+  EstadoBotoes(BOTAO_INSERIR);
+end;
+
+procedure TFrmMain.BtnCadNovoClick(Sender: TObject);
+begin
+  ResetarForm;
+  EstadoBotoes(BOTAO_NOVO);
 end;
 
 procedure TFrmMain.BtnCadProximoClick(Sender: TObject);
   var pos: integer;
 begin
-  Resetar(GbxCadPF);
+  ResetarForm;
+
   if EdtCadCodigo.Text <> '' then
     GetProximoCliente(StrToInt(EdtCadCodigo.Text))
   else
     GetProximoCliente(0);
+end;
+
+procedure TFrmMain.EstadoBotoes(Value: integer);
+begin
+  case Value of
+   1 : begin
+      BtnCadNovo.Enabled     :=False;
+      BtnCadInserir.Enabled  := True;
+      BtnCadExcluir.Enabled  := False;
+      BtnCadCancelar.Enabled := True;
+   end;
+   2..4 : begin
+      BtnCadNovo.Enabled     := True;
+      BtnCadInserir.Enabled  := False;
+      BtnCadExcluir.Enabled  := False;
+      BtnCadCancelar.Enabled := False;
+   end;
+  end;
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
@@ -184,6 +228,7 @@ end;
 procedure TFrmMain.FormShow(Sender: TObject);
 begin
   PnlNavegador.Enabled := True;
+  BtnCadNovo.Enabled := True;
 end;
 
 procedure TFrmMain.GetAnteriorCliente(Value: integer);
@@ -318,7 +363,18 @@ begin
   end;
 end;
 
-procedure TFrmMain.Inserir;
+procedure TFrmMain.GrdConsultaDBTableView1DblClick(Sender: TObject);
+  var Db : TcxGridDBTableView;
+begin
+  ResetarCampos;
+  Db :=  GrdConsultaDBTableView1;
+  GetCliente(Db.DataController.Values[DB.DataController.FocusedRecordIndex, 0]);
+  Db := Nil;
+  Db.Free;
+  PgcMain.TabIndex := 0;
+end;
+
+procedure TFrmMain.InserirOuAlterar;
 var Cliente : TCliente;
 begin
   Cliente := TCliente.Create;
@@ -361,11 +417,13 @@ var
   I : Integer;
 begin
   for I := 0 to Value.ControlCount - 1  do
+  begin
     if Value.Controls[I] is TEdit then
-       ShowMessage(Value.Controls[I].Name);
-//
-//    if Components[I] is TEdit then
-//      (Components[I] as TEdit).Text := '';
+      (Value.Controls[I] as TEdit).Text := '';
+    if Value.Controls[I] is TMaskEdit then
+      (Value.Controls[I] as TMaskEdit).Text := '';
+  end;
+
 end;
 
 procedure TFrmMain.ResetarCampos;
@@ -375,6 +433,14 @@ begin
   for I := 0 to Self.ControlCount -1 do
     if (Self.Controls[I] is TEdit) then
       (Controls[I] as TEdit).Text := '';
+end;
+
+procedure TFrmMain.ResetarForm;
+begin
+  Resetar(GbxCadPF);
+  Resetar(GbxCadPJ);
+  Resetar(GbxCadEndereco);
+  Resetar(GbxCadFinanceiro);
 end;
 
 end.

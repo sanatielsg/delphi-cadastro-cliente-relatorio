@@ -102,8 +102,23 @@ begin
 end;
 
 function TDM.GetAnterior(Value : integer): TCliente;
+  var pos: integer;
+      sqlTmp : string;
 begin
-
+  pos := 0;
+  sqlTmp := 'select * from cliente where cli_codigo < :cli_codigo  '
+           +'order by cli_codigo desc limit 1';
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    ParamByName('cli_codigo').AsInteger := Value;
+    Open();
+    if RecordCount > 0 then
+      pos := FieldByName('cli_codigo').AsInteger else pos := Value;
+  end;
+  Result := Get(pos);
 end;
 
 function TDM.GetPrimeiro: TCliente;
@@ -119,8 +134,19 @@ function TDM.GetProximo(Value : integer) : TCliente;
   var pos: integer;
       sqlTmp : string;
 begin
-  sqlTmp := 'select cli_codigo from cliente where cli_codigo > :cli_codigo limit 1'
-
+  pos := 0;
+  sqlTmp := 'select cli_codigo from cliente where cli_codigo > :cli_codigo limit 1';
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    ParamByName('cli_codigo').AsInteger := Value;
+    Open();
+    if RecordCount > 0 then
+      pos := FieldByName('cli_codigo').AsInteger else pos := Value;
+  end;
+  Result := Get(pos);
 end;
 
 function TDM.GetUltimo: TCliente;
@@ -164,17 +190,19 @@ begin
   try
     with Query do
     begin
-      ParamByName('cli_nome').AsString := Value.Nome;
-      ParamByName('cli_cpf').AsString := Value.Nome;
-      ParamByName('cli_rg').AsString := Value.Nome;
-      ParamByName('cli_cnpj').AsString := Value.Nome;
-      ParamByName('cli_tipo_pessoa').AsString    := Value.Nome;
-      ParamByName('cli_endereco').AsString       := Value.Nome;
-      ParamByName('cli_numero').AsString         := Value.Nome;
-      ParamByName('cli_cep').AsString            := Value.Nome;
-      ParamByName('cli_cidade').AsString         := Value.Nome;
-      ParamByName('cli_uf').AsString             := Value.Nome;
-      ParamByName('cli_limite_credito').AsString := Value.Nome;
+      ParamByName('cli_nome').AsString           := Value.Nome;
+      ParamByName('cli_cpf').AsString            := Value.CPF;
+      ParamByName('cli_rg').AsString             := Value.RG;
+      ParamByName('cli_cnpj').AsString           := Value.CNPJ;
+      ParamByName('cli_tipo_pessoa').AsInteger   := Value.TipoPessoa;
+      ParamByName('cli_endereco').AsString       := Value.Endereco;
+      ParamByName('cli_numero').AsString         := Value.Numero;
+      ParamByName('cli_cep').AsString            := Value.CEP;
+      ParamByName('cli_cidade').AsString         := Value.Cidade;
+      ParamByName('cli_uf').AsString             := Value.UF;
+      ParamByName('cli_limite_credito').AsFloat  := Value.LimiteCredito;
+
+
     end;
 
   finally

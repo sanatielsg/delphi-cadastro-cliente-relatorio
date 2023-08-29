@@ -35,7 +35,7 @@ object FrmMain: TFrmMain
         TabOrder = 0
         object BtnCadInserir: TButton
           Left = 82
-          Top = 4
+          Top = 2
           Width = 73
           Height = 57
           Caption = 'Inserir'
@@ -59,6 +59,7 @@ object FrmMain: TFrmMain
           ImageMargins.Top = 10
           Images = ImageList
           TabOrder = 1
+          OnClick = BtnCadNovoClick
         end
         object BtnCadExcluir: TButton
           Left = 161
@@ -72,6 +73,7 @@ object FrmMain: TFrmMain
           ImageMargins.Top = 10
           Images = ImageList
           TabOrder = 2
+          OnClick = BtnCadExcluirClick
         end
         object BtnCadCancelar: TButton
           Left = 240
@@ -85,6 +87,7 @@ object FrmMain: TFrmMain
           ImageMargins.Top = 10
           Images = ImageList
           TabOrder = 3
+          OnClick = BtnCadCancelarClick
         end
         object PnlNavegador: TPanel
           Left = 319
@@ -457,7 +460,9 @@ object FrmMain: TFrmMain
         Height = 302
         Align = alClient
         TabOrder = 2
+        ExplicitTop = 51
         object GrdConsultaDBTableView1: TcxGridDBTableView
+          OnDblClick = GrdConsultaDBTableView1DblClick
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DM.DSConsultaClientes
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -584,6 +589,7 @@ object FrmMain: TFrmMain
         Height = 220
         Caption = 'Cadastral'
         TabOrder = 1
+        Visible = False
         object BtnRelCadastral: TButton
           Left = 9
           Top = 176
@@ -629,6 +635,7 @@ object FrmMain: TFrmMain
         Height = 129
         Caption = 'Auditoria'
         TabOrder = 2
+        Visible = False
         object Label2: TLabel
           Left = 16
           Top = 24
@@ -673,8 +680,8 @@ object FrmMain: TFrmMain
     end
   end
   object ImageList: TImageList
-    Left = 156
-    Top = 102
+    Left = 284
+    Top = 350
     Bitmap = {
       494C010112006C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
@@ -1344,7 +1351,7 @@ object FrmMain: TFrmMain
       000000000000}
   end
   object cxLocalizer: TcxLocalizer
-    Left = 212
-    Top = 120
+    Left = 348
+    Top = 352
   end
 end
