@@ -174,7 +174,7 @@ object FrmMain: TFrmMain
             'Jur'#237'dica')
           TabOrder = 1
         end
-        object PageControl1: TPageControl
+        object PgcDados: TPageControl
           Left = 9
           Top = 66
           Width = 465

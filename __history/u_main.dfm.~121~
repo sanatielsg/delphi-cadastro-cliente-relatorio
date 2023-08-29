@@ -13,6 +13,7 @@ object FrmMain: TFrmMain
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PgcMain: TPageControl
@@ -90,9 +91,10 @@ object FrmMain: TFrmMain
           Top = 5
           Width = 160
           Height = 56
+          Enabled = False
           TabOrder = 4
           object BtnCadAnterior: TButton
-            Left = 45
+            Left = 49
             Top = 15
             Width = 34
             Height = 29
@@ -100,6 +102,7 @@ object FrmMain: TFrmMain
             ImageIndex = 8
             Images = ImageList
             TabOrder = 0
+            OnClick = BtnCadAnteriorClick
           end
           object BtnCadPrimeiro: TButton
             Left = 9
@@ -112,7 +115,7 @@ object FrmMain: TFrmMain
             TabOrder = 1
           end
           object BtnCadProximo: TButton
-            Left = 82
+            Left = 78
             Top = 15
             Width = 34
             Height = 29
@@ -120,6 +123,7 @@ object FrmMain: TFrmMain
             ImageIndex = 10
             Images = ImageList
             TabOrder = 2
+            OnClick = BtnCadProximoClick
           end
           object BtnCadUltimo: TButton
             Left = 118
@@ -130,7 +134,6 @@ object FrmMain: TFrmMain
             ImageIndex = 6
             Images = ImageList
             TabOrder = 3
-            OnClick = BtnCadUltimoClick
           end
         end
       end
@@ -171,7 +174,7 @@ object FrmMain: TFrmMain
             'Jur'#237'dica')
           TabOrder = 1
         end
-        object PageControl1: TPageControl
+        object PgcDados: TPageControl
           Left = 9
           Top = 66
           Width = 465

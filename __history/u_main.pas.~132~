@@ -62,7 +62,7 @@ type
     EdtCadCodigo: TEdit;
     Label4: TLabel;
     RgpCadTipoPessoa: TRadioGroup;
-    PageControl1: TPageControl;
+    PgcDados: TPageControl;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     GbxCadPF: TGroupBox;
@@ -122,24 +122,24 @@ type
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure BtnCadProximoClick(Sender: TObject);
+    procedure BtnCadAnteriorClick(Sender: TObject);
 
   private
-    procedure NavegarAnterior(Value: integer);
-    procedure NavegarPrimeiro;
-    procedure NavegarProximo(Value: integer);
-    procedure NavegarUltimo;
     { Private declarations }
   public
     { Public declarations }
     procedure Inserir();
     procedure GetCliente(Value: integer);
-    procedure GetClienteNav(Value : integer);
+    procedure GetProximoCliente(Value: integer);
+    procedure GetAnteriorCliente(Value: integer);
+    procedure ResetarCampos();
+    procedure Resetar(Value : TGroupBox);
+
   end;
 
 var
   FrmMain: TFrmMain;
-const
-  PRIMEIRO = 1;
 
 implementation
 
@@ -147,9 +147,28 @@ implementation
 
 { TFrmMain }
 
+procedure TFrmMain.BtnCadAnteriorClick(Sender: TObject);
+  var pos: integer;
+begin
+  Resetar(GbxCadPF);
+  if EdtCadCodigo.Text <> '' then
+    GetAnteriorCliente(StrToInt(EdtCadCodigo.Text))
+  else
+    GetAnteriorCliente(999999999);
+end;
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
 begin
   Inserir();
+end;
+
+procedure TFrmMain.BtnCadProximoClick(Sender: TObject);
+  var pos: integer;
+begin
+  Resetar(GbxCadPF);
+  if EdtCadCodigo.Text <> '' then
+    GetProximoCliente(StrToInt(EdtCadCodigo.Text))
+  else
+    GetProximoCliente(0);
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
@@ -165,6 +184,50 @@ end;
 procedure TFrmMain.FormShow(Sender: TObject);
 begin
   PnlNavegador.Enabled := True;
+end;
+
+procedure TFrmMain.GetAnteriorCliente(Value: integer);
+  var Cliente :TCliente;
+begin
+  Cliente := Nil;
+  try
+    try
+      Cliente := DM.GetAnterior(Value);
+      if Cliente <> Nil then
+      begin
+        with Cliente do
+        begin
+          EdtCadCodigo.Text := IntToStr(Codigo);
+          RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+          if TipoPessoa = 1 then
+          begin
+            EdtCadNome.Text           := Nome;
+            EdtCadCPF.Text            := CPF;
+            EdtCadRG.Text             := RG;
+            DTPCadDataNascimento.Date := DataNascimento;
+          end
+          else if TipoPessoa = 2 then
+          begin
+            EdtCadRazaoSocial.Text := RazaoSocial;
+            EdtCadFantasia.Text := NomeFantasia;
+            EdtCadCNPJ.Text := CNPJ;
+          end;
+          EdtCadEndereco.Text := Endereco;
+          EdtCadNumero.Text   := Numero;
+          EdtCadCEP.Text      := CEP;
+          EdtCadCidade.Text   := Cidade;
+          EdtCadUF.Text       := UF;
+          EdtCadLimite.Text   := FloatToStr(LimiteCredito);
+        end;
+      end;
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro: '+E.Message);
+    end;
+  finally
+    if Cliente <> Nil then
+      FreeAndNil(Cliente);
+  end;
 end;
 
 procedure TFrmMain.GetCliente(Value : integer);
@@ -211,15 +274,48 @@ begin
   end;
 end;
 
-procedure TFrmMain.GetClienteNav(Value: integer);
+procedure TFrmMain.GetProximoCliente(Value: integer);
+  var Cliente :TCliente;
 begin
-  case Value of
-    PRIMEIRO : begin
-
+  Cliente := Nil;
+  try
+    try
+      Cliente := DM.GetProximo(Value);
+      if Cliente <> Nil then
+      begin
+        with Cliente do
+        begin
+          EdtCadCodigo.Text := IntToStr(Codigo);
+          RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+          if TipoPessoa = 1 then
+          begin
+            EdtCadNome.Text           := Nome;
+            EdtCadCPF.Text            := CPF;
+            EdtCadRG.Text             := RG;
+            DTPCadDataNascimento.Date := DataNascimento;
+          end
+          else if TipoPessoa = 2 then
+          begin
+            EdtCadRazaoSocial.Text := RazaoSocial;
+            EdtCadFantasia.Text := NomeFantasia;
+            EdtCadCNPJ.Text := CNPJ;
+          end;
+          EdtCadEndereco.Text := Endereco;
+          EdtCadNumero.Text   := Numero;
+          EdtCadCEP.Text      := CEP;
+          EdtCadCidade.Text   := Cidade;
+          EdtCadUF.Text       := UF;
+          EdtCadLimite.Text   := FloatToStr(LimiteCredito);
+        end;
+      end;
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro: '+E.Message);
     end;
-
+  finally
+    if Cliente <> Nil then
+      FreeAndNil(Cliente);
   end;
-
 end;
 
 procedure TFrmMain.Inserir;
@@ -260,24 +356,28 @@ begin
   end;
 end;
 
-procedure TFrmMain.NavegarAnterior(Value: integer);
+procedure TFrmMain.Resetar(Value: TGroupBox);
+var
+  I : Integer;
 begin
+  for I := 1 to Value.ControlCount  do
+    //ShowMessage(Value.Controls[I].Name);
+    if Value.Controls[I] is TEdit then
+       ShowMessage(Value.Controls[I].Name);
 
+//
+//
+//    if Components[I] is TEdit then
+//      (Components[I] as TEdit).Text := '';
 end;
 
-procedure TFrmMain.NavegarPrimeiro;
+procedure TFrmMain.ResetarCampos;
+var
+  I: Integer;
 begin
-
-end;
-
-procedure TFrmMain.NavegarProximo(Value: integer);
-begin
-  GetCliente(DM.GetProximo(Value));
-end;
-
-procedure TFrmMain.NavegarUltimo;
-begin
-
+  for I := 0 to Self.ControlCount -1 do
+    if (Self.Controls[I] is TEdit) then
+      (Controls[I] as TEdit).Text := '';
 end;
 
 end.

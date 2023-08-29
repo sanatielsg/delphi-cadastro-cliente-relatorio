@@ -62,7 +62,7 @@ type
     EdtCadCodigo: TEdit;
     Label4: TLabel;
     RgpCadTipoPessoa: TRadioGroup;
-    PageControl1: TPageControl;
+    PgcDados: TPageControl;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     GbxCadPF: TGroupBox;
@@ -133,6 +133,8 @@ type
     procedure GetCliente(Value: integer);
     procedure GetProximoCliente(Value: integer);
     procedure GetAnteriorCliente(Value: integer);
+    procedure ResetarCampos();
+    procedure Resetar(Value : TGroupBox);
 
   end;
 
@@ -148,6 +150,11 @@ implementation
 procedure TFrmMain.BtnCadAnteriorClick(Sender: TObject);
   var pos: integer;
 begin
+  Resetar(GbxCadPF);
+  Resetar(GbxCadPJ);
+  Resetar(GbxCadEndereco);
+  Resetar(GbxCadFinanceiro);
+
   if EdtCadCodigo.Text <> '' then
     GetAnteriorCliente(StrToInt(EdtCadCodigo.Text))
   else
@@ -161,6 +168,11 @@ end;
 procedure TFrmMain.BtnCadProximoClick(Sender: TObject);
   var pos: integer;
 begin
+  Resetar(GbxCadPF);
+  Resetar(GbxCadPJ);
+  Resetar(GbxCadEndereco);
+  Resetar(GbxCadFinanceiro);
+
   if EdtCadCodigo.Text <> '' then
     GetProximoCliente(StrToInt(EdtCadCodigo.Text))
   else
@@ -350,6 +362,29 @@ begin
   finally
     FreeAndNil(Cliente);
   end;
+end;
+
+procedure TFrmMain.Resetar(Value: TGroupBox);
+var
+  I : Integer;
+begin
+  for I := 0 to Value.ControlCount - 1  do
+  begin
+    if Value.Controls[I] is TEdit then
+      (Value.Controls[I] as TEdit).Text := '';
+    if Value.Controls[I] is TMaskEdit then
+      (Value.Controls[I] as TMaskEdit).Text := '';
+  end;
+
+end;
+
+procedure TFrmMain.ResetarCampos;
+var
+  I: Integer;
+begin
+  for I := 0 to Self.ControlCount -1 do
+    if (Self.Controls[I] is TEdit) then
+      (Controls[I] as TEdit).Text := '';
 end;
 
 end.
