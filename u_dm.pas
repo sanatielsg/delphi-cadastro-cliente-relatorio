@@ -38,10 +38,11 @@ type
     function Alterar(Value : TCliente): Integer;
     function Get(Value : integer): TCliente;
 
-    function GetUltimo : integer;
-    function GetProximo : integer;
-    function GetAnterior : integer;
-    function GetPrimeiro : integer;
+    function GetPrimeiro : TCliente;
+    function GetUltimo : TCliente;
+
+    function GetProximo(Value : integer) : TCliente;
+    function GetAnterior(Value: integer) : TCliente;
   end;
 
 var
@@ -100,28 +101,61 @@ begin
   Result := Cliente;
 end;
 
-function TDM.GetAnterior: integer;
+function TDM.GetAnterior(Value : integer): TCliente;
+  var pos: integer;
+      sqlTmp : string;
 begin
-
+  pos := 0;
+  sqlTmp := 'select * from cliente where cli_codigo < :cli_codigo  '
+           +'order by cli_codigo desc limit 1';
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    ParamByName('cli_codigo').AsInteger := Value;
+    Open();
+    if RecordCount > 0 then
+      pos := FieldByName('cli_codigo').AsInteger else pos := Value;
+  end;
+  Result := Get(pos);
 end;
 
-function TDM.GetPrimeiro: integer;
+function TDM.GetPrimeiro: TCliente;
   var sqlTmp : string;
+      pos : integer;
 begin
   sqlTmp := 'select min(cli_codigo) as r from cliente';
-
+  //...
+  Result := Get(pos);
 end;
 
-function TDM.GetProximo: integer;
+function TDM.GetProximo(Value : integer) : TCliente;
+  var pos: integer;
+      sqlTmp : string;
 begin
-
+  pos := 0;
+  sqlTmp := 'select cli_codigo from cliente where cli_codigo > :cli_codigo limit 1';
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    ParamByName('cli_codigo').AsInteger := Value;
+    Open();
+    if RecordCount > 0 then
+      pos := FieldByName('cli_codigo').AsInteger else pos := Value;
+  end;
+  Result := Get(pos);
 end;
 
-function TDM.GetUltimo: integer;
+function TDM.GetUltimo: TCliente;
   var sqlTmp : string;
+      pos : integer;
 begin
   sqlTmp := 'select max(cli_codigo) as r from cliente';
-
+  //...
+  Result := Get(pos);
 end;
 
 function TDM.Inserir(Value: TCliente): Integer;

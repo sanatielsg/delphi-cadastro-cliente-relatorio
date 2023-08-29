@@ -13,6 +13,7 @@ object FrmMain: TFrmMain
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PgcMain: TPageControl
@@ -90,46 +91,46 @@ object FrmMain: TFrmMain
           Top = 5
           Width = 160
           Height = 56
+          Enabled = False
           TabOrder = 4
           object BtnCadAnterior: TButton
             Left = 45
             Top = 15
             Width = 34
             Height = 29
-            Enabled = False
             ImageAlignment = iaCenter
             ImageIndex = 8
             Images = ImageList
             TabOrder = 0
+            OnClick = BtnCadAnteriorClick
           end
           object BtnCadPrimeiro: TButton
             Left = 9
             Top = 15
             Width = 34
             Height = 29
-            Enabled = False
             ImageAlignment = iaCenter
             ImageIndex = 4
             Images = ImageList
             TabOrder = 1
+            OnClick = BtnCadPrimeiroClick
           end
           object BtnCadProximo: TButton
-            Left = 82
+            Left = 81
             Top = 15
             Width = 34
             Height = 29
-            Enabled = False
             ImageAlignment = iaCenter
             ImageIndex = 10
             Images = ImageList
             TabOrder = 2
+            OnClick = BtnCadProximoClick
           end
           object BtnCadUltimo: TButton
-            Left = 119
+            Left = 118
             Top = 15
             Width = 34
             Height = 29
-            Enabled = False
             ImageAlignment = iaCenter
             ImageIndex = 6
             Images = ImageList

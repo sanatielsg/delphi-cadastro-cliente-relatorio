@@ -121,7 +121,6 @@ type
     BtnCadUltimo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
-    procedure BtnCadUltimoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
   private
@@ -129,9 +128,7 @@ type
   public
     { Public declarations }
     procedure Inserir();
-    procedure Proximo();
     procedure GetCliente(Value: integer);
-    procedure Navegacao();
   end;
 
 var
@@ -148,11 +145,6 @@ begin
   Inserir();
 end;
 
-procedure TFrmMain.BtnCadUltimoClick(Sender: TObject);
-begin
-  Proximo();
-end;
-
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
 if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Verifica se existe o arquivo dentro da pasta}
@@ -165,37 +157,47 @@ end;
 
 procedure TFrmMain.FormShow(Sender: TObject);
 begin
-  Navegacao;
+  PnlNavegador.Enabled := True;
 end;
 
 procedure TFrmMain.GetCliente(Value : integer);
   var Cliente :TCliente;
 begin
+  Cliente := Nil;
   try
-     Cliente := DM.Get(Value);
-     if Cliente <> Nil then
-     begin
-       with Cliente do
-       begin
-         EdtCadCodigo.Text := IntToStr(Codigo);
-         RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
-         if TipoPessoa = 1 then
-         begin
-           EdtCadNome.Text           := Nome;
-           EdtCadCPF.Text            := CPF;
-           EdtCadRG.Text             := RG;
-           DTPCadDataNascimento.Date := DataNascimento;
-         end
-         else if TipoPessoa = 2 then
-         begin
-           EdtCadRazaoSocial.Text := RazaoSocial;
-           EdtCadFantasia.Text := NomeFantasia;
-           EdtCadCNPJ.Text := CNPJ;
-         end;
-
-
-       end;
-     end;
+    try
+      Cliente := DM.Get(Value);
+      if Cliente <> Nil then
+      begin
+        with Cliente do
+        begin
+          EdtCadCodigo.Text := IntToStr(Codigo);
+          RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+          if TipoPessoa = 1 then
+          begin
+            EdtCadNome.Text           := Nome;
+            EdtCadCPF.Text            := CPF;
+            EdtCadRG.Text             := RG;
+            DTPCadDataNascimento.Date := DataNascimento;
+          end
+          else if TipoPessoa = 2 then
+          begin
+            EdtCadRazaoSocial.Text := RazaoSocial;
+            EdtCadFantasia.Text := NomeFantasia;
+            EdtCadCNPJ.Text := CNPJ;
+          end;
+          EdtCadEndereco.Text := Endereco;
+          EdtCadNumero.Text   := Numero;
+          EdtCadCEP.Text      := CEP;
+          EdtCadCidade.Text   := Cidade;
+          EdtCadUF.Text       := UF;
+          EdtCadLimite.Text   := FloatToStr(LimiteCredito);
+        end;
+      end;
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro: '+E.Message);
+    end;
   finally
     if Cliente <> Nil then
       FreeAndNil(Cliente);
@@ -238,19 +240,6 @@ begin
   finally
     FreeAndNil(Cliente);
   end;
-end;
-
-procedure TFrmMain.Navegacao;
-begin
-  PnlNavegador.Enabled := True;
-end;
-
-procedure TFrmMain.Proximo;
-  var proximo : integer;
-begin
-  if EdtCadCodigo.Text = '' then
-    proximo := 1 else proximo := StrToInt(EdtCadCodigo.Text) + 1;
-  GetCliente(proximo);
 end;
 
 end.

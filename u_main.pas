@@ -122,10 +122,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure BtnCadUltimoClick(Sender: TObject);
     procedure BtnCadProximoClick(Sender: TObject);
     procedure BtnCadAnteriorClick(Sender: TObject);
-    procedure BtnCadPrimeiroClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -133,10 +131,8 @@ type
     { Public declarations }
     procedure Inserir();
     procedure GetCliente(Value: integer);
-    procedure NavegarProximo();
-    procedure NavegarUltimo();
-    procedure NavegarPrimeiro();
-    procedure NavegarAnterior();
+    procedure GetProximoCliente(Value: integer);
+    procedure GetAnteriorCliente(Value: integer);
 
   end;
 
@@ -150,28 +146,25 @@ implementation
 { TFrmMain }
 
 procedure TFrmMain.BtnCadAnteriorClick(Sender: TObject);
+  var pos: integer;
 begin
-  NavegarAnterior;
+  if EdtCadCodigo.Text <> '' then
+    GetAnteriorCliente(StrToInt(EdtCadCodigo.Text))
+  else
+    GetAnteriorCliente(999999999);
 end;
-
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
 begin
   Inserir();
 end;
 
-procedure TFrmMain.BtnCadPrimeiroClick(Sender: TObject);
-begin
-  NavegarPrimeiro;
-end;
-
 procedure TFrmMain.BtnCadProximoClick(Sender: TObject);
+  var pos: integer;
 begin
-  NavegarProximo;
-end;
-
-procedure TFrmMain.BtnCadUltimoClick(Sender: TObject);
-begin
-  NavegarUltimo;
+  if EdtCadCodigo.Text <> '' then
+    GetProximoCliente(StrToInt(EdtCadCodigo.Text))
+  else
+    GetProximoCliente(0);
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
@@ -189,39 +182,128 @@ begin
   PnlNavegador.Enabled := True;
 end;
 
+procedure TFrmMain.GetAnteriorCliente(Value: integer);
+  var Cliente :TCliente;
+begin
+  Cliente := Nil;
+  try
+    try
+      Cliente := DM.GetAnterior(Value);
+      if Cliente <> Nil then
+      begin
+        with Cliente do
+        begin
+          EdtCadCodigo.Text := IntToStr(Codigo);
+          RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+          if TipoPessoa = 1 then
+          begin
+            EdtCadNome.Text           := Nome;
+            EdtCadCPF.Text            := CPF;
+            EdtCadRG.Text             := RG;
+            DTPCadDataNascimento.Date := DataNascimento;
+          end
+          else if TipoPessoa = 2 then
+          begin
+            EdtCadRazaoSocial.Text := RazaoSocial;
+            EdtCadFantasia.Text := NomeFantasia;
+            EdtCadCNPJ.Text := CNPJ;
+          end;
+          EdtCadEndereco.Text := Endereco;
+          EdtCadNumero.Text   := Numero;
+          EdtCadCEP.Text      := CEP;
+          EdtCadCidade.Text   := Cidade;
+          EdtCadUF.Text       := UF;
+          EdtCadLimite.Text   := FloatToStr(LimiteCredito);
+        end;
+      end;
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro: '+E.Message);
+    end;
+  finally
+    if Cliente <> Nil then
+      FreeAndNil(Cliente);
+  end;
+end;
+
 procedure TFrmMain.GetCliente(Value : integer);
   var Cliente :TCliente;
 begin
+  Cliente := Nil;
   try
     try
-       Cliente := DM.Get(Value);
-       if Cliente <> Nil then
-       begin
-         with Cliente do
-         begin
-           EdtCadCodigo.Text := IntToStr(Codigo);
-           RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
-           if TipoPessoa = 1 then
-           begin
-             EdtCadNome.Text           := Nome;
-             EdtCadCPF.Text            := CPF;
-             EdtCadRG.Text             := RG;
-             DTPCadDataNascimento.Date := DataNascimento;
-           end
-           else if TipoPessoa = 2 then
-           begin
-             EdtCadRazaoSocial.Text := RazaoSocial;
-             EdtCadFantasia.Text := NomeFantasia;
-             EdtCadCNPJ.Text := CNPJ;
-           end;
-           EdtCadEndereco.Text := Endereco;
-           EdtCadNumero.Text   := Numero;
-           EdtCadCEP.Text      := CEP;
-           EdtCadCidade.Text   := Cidade;
-           EdtCadUF.Text       := UF;
-           EdtCadLimite.Text   := FloatToStr(LimiteCredito);
-         end;
-       end;
+      Cliente := DM.Get(Value);
+      if Cliente <> Nil then
+      begin
+        with Cliente do
+        begin
+          EdtCadCodigo.Text := IntToStr(Codigo);
+          RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+          if TipoPessoa = 1 then
+          begin
+            EdtCadNome.Text           := Nome;
+            EdtCadCPF.Text            := CPF;
+            EdtCadRG.Text             := RG;
+            DTPCadDataNascimento.Date := DataNascimento;
+          end
+          else if TipoPessoa = 2 then
+          begin
+            EdtCadRazaoSocial.Text := RazaoSocial;
+            EdtCadFantasia.Text := NomeFantasia;
+            EdtCadCNPJ.Text := CNPJ;
+          end;
+          EdtCadEndereco.Text := Endereco;
+          EdtCadNumero.Text   := Numero;
+          EdtCadCEP.Text      := CEP;
+          EdtCadCidade.Text   := Cidade;
+          EdtCadUF.Text       := UF;
+          EdtCadLimite.Text   := FloatToStr(LimiteCredito);
+        end;
+      end;
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro: '+E.Message);
+    end;
+  finally
+    if Cliente <> Nil then
+      FreeAndNil(Cliente);
+  end;
+end;
+
+procedure TFrmMain.GetProximoCliente(Value: integer);
+  var Cliente :TCliente;
+begin
+  Cliente := Nil;
+  try
+    try
+      Cliente := DM.GetProximo(Value);
+      if Cliente <> Nil then
+      begin
+        with Cliente do
+        begin
+          EdtCadCodigo.Text := IntToStr(Codigo);
+          RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+          if TipoPessoa = 1 then
+          begin
+            EdtCadNome.Text           := Nome;
+            EdtCadCPF.Text            := CPF;
+            EdtCadRG.Text             := RG;
+            DTPCadDataNascimento.Date := DataNascimento;
+          end
+          else if TipoPessoa = 2 then
+          begin
+            EdtCadRazaoSocial.Text := RazaoSocial;
+            EdtCadFantasia.Text := NomeFantasia;
+            EdtCadCNPJ.Text := CNPJ;
+          end;
+          EdtCadEndereco.Text := Endereco;
+          EdtCadNumero.Text   := Numero;
+          EdtCadCEP.Text      := CEP;
+          EdtCadCidade.Text   := Cidade;
+          EdtCadUF.Text       := UF;
+          EdtCadLimite.Text   := FloatToStr(LimiteCredito);
+        end;
+      end;
     except
       on E:Exception do
         ShowMessage('Ocorreu um erro: '+E.Message);
@@ -268,29 +350,6 @@ begin
   finally
     FreeAndNil(Cliente);
   end;
-end;
-
-procedure TFrmMain.NavegarAnterior;
-begin
-
-end;
-
-procedure TFrmMain.NavegarPrimeiro;
-begin
-
-end;
-
-procedure TFrmMain.NavegarProximo;
-  var proximo : integer;
-begin
-  if EdtCadCodigo.Text = '' then
-    proximo := 1 else proximo := StrToInt(EdtCadCodigo.Text) + 1;
-  GetCliente(proximo);
-end;
-
-procedure TFrmMain.NavegarUltimo;
-begin
-
 end;
 
 end.

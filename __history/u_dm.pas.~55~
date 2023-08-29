@@ -38,10 +38,11 @@ type
     function Alterar(Value : TCliente): Integer;
     function Get(Value : integer): TCliente;
 
-    function GetUltimo : integer;
-    function GetProximo : integer;
-    function GetAnterior : integer;
-    function GetPrimeiro : integer;
+    function GetPrimeiro : TCliente;
+    function GetUltimo : TCliente;
+
+    function GetProximo(Value : integer) : TCliente;
+    function GetAnterior(Value: integer) : TCliente;
   end;
 
 var
@@ -77,50 +78,63 @@ begin
     if RecordCount > 0 then
     begin
       Cliente := TCliente.Create;
-      Cliente.TipoPessoa     := FieldByName('cli_tipo_pessoa').AsInteger;
-      Cliente.Codigo         := FieldByName('cli_codigo').AsInteger;
-      Cliente.Nome           := FieldByName('cli_nome').AsString;
-      Cliente.CPF            := FieldByName('cli_cpf').AsString;
-      Cliente.RG             := FieldByName('cli_rg').AsString;
-      Cliente.DataNascimento := FieldByName('cli_data_nascimento').AsDateTime;
-
-      Cliente.RazaoSocial    := FieldByName('cli_razao_social').AsString;
-      Cliente.NomeFantasia   := FieldByName('cli_nome_fantasia').AsString;
-      Cliente.CNPJ           := FieldByName('cli_cnpj').AsString;
-
-      Cliente.Endereco       := FieldByName('cli_endereco').AsString;
-      Cliente.Numero         := FieldByName('cli_numero').AsString;
-      Cliente.CEP            := FieldByName('cli_cep').AsString;
-      Cliente.Cidade         := FieldByName('cli_cidade').AsString;
-      Cliente.UF             := FieldByName('cli_uf').AsString;
-      Cliente.LimiteCredito  := FieldByName('cli_limite_credito').AsString;
+      with Cliente do
+      begin
+        TipoPessoa     := FieldByName('cli_tipo_pessoa').AsInteger;
+        Codigo         := FieldByName('cli_codigo').AsInteger;
+        Nome           := FieldByName('cli_nome').AsString;
+        CPF            := FieldByName('cli_cpf').AsString;
+        RG             := FieldByName('cli_rg').AsString;
+        DataNascimento := FieldByName('cli_data_nascimento').AsDateTime;
+        RazaoSocial    := FieldByName('cli_razao_social').AsString;
+        NomeFantasia   := FieldByName('cli_nome_fantasia').AsString;
+        CNPJ           := FieldByName('cli_cnpj').AsString;
+        Endereco       := FieldByName('cli_endereco').AsString;
+        Numero         := FieldByName('cli_numero').AsString;
+        CEP            := FieldByName('cli_cep').AsString;
+        Cidade         := FieldByName('cli_cidade').AsString;
+        UF             := FieldByName('cli_uf').AsString;
+        LimiteCredito  := FieldByName('cli_limite_credito').AsFloat;
+      end;
     end;
   end;
   Result := Cliente;
 end;
 
-function TDM.GetAnterior: integer;
+function TDM.GetAnterior(Value : integer): TCliente;
+  var pos: integer;
+      sqlTmp : string;
 begin
+  sqlTmp := 'select cli_codigo from cliente where cli_codigo < :cli_codigo limit 1';
+
 
 end;
 
-function TDM.GetPrimeiro: integer;
+function TDM.GetPrimeiro: TCliente;
   var sqlTmp : string;
+      pos : integer;
 begin
   sqlTmp := 'select min(cli_codigo) as r from cliente';
-
+  //...
+  Result := Get(pos);
 end;
 
-function TDM.GetProximo: integer;
+function TDM.GetProximo(Value : integer) : TCliente;
+  var pos: integer;
+      sqlTmp : string;
 begin
+  sqlTmp := 'select cli_codigo from cliente where cli_codigo > :cli_codigo limit 1';
+
 
 end;
 
-function TDM.GetUltimo: integer;
+function TDM.GetUltimo: TCliente;
   var sqlTmp : string;
+      pos : integer;
 begin
   sqlTmp := 'select max(cli_codigo) as r from cliente';
-
+  //...
+  Result := Get(pos);
 end;
 
 function TDM.Inserir(Value: TCliente): Integer;
