@@ -35,7 +35,7 @@ object FrmMain: TFrmMain
         TabOrder = 0
         object BtnCadInserir: TButton
           Left = 82
-          Top = 2
+          Top = 4
           Width = 73
           Height = 57
           Caption = 'Inserir'
@@ -227,6 +227,7 @@ object FrmMain: TFrmMain
                 Top = 39
                 Width = 369
                 Height = 21
+                CharCase = ecUpperCase
                 MaxLength = 100
                 TabOrder = 0
               end
@@ -296,6 +297,7 @@ object FrmMain: TFrmMain
                 Top = 39
                 Width = 369
                 Height = 21
+                CharCase = ecUpperCase
                 MaxLength = 100
                 TabOrder = 0
               end
@@ -304,6 +306,7 @@ object FrmMain: TFrmMain
                 Top = 79
                 Width = 369
                 Height = 21
+                CharCase = ecUpperCase
                 MaxLength = 100
                 TabOrder = 1
               end
@@ -369,6 +372,7 @@ object FrmMain: TFrmMain
                 Top = 40
                 Width = 385
                 Height = 21
+                CharCase = ecUpperCase
                 TabOrder = 0
               end
               object EdtCadNumero: TEdit
@@ -393,6 +397,7 @@ object FrmMain: TFrmMain
                 Top = 83
                 Width = 73
                 Height = 21
+                CharCase = ecUpperCase
                 TabOrder = 3
               end
               object EdtCadUF: TEdit
@@ -400,6 +405,7 @@ object FrmMain: TFrmMain
                 Top = 83
                 Width = 35
                 Height = 21
+                CharCase = ecUpperCase
                 TabOrder = 4
               end
             end

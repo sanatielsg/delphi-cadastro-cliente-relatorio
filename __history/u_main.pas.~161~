@@ -125,6 +125,9 @@ type
     procedure BtnCadProximoClick(Sender: TObject);
     procedure BtnCadAnteriorClick(Sender: TObject);
     procedure BtnCadNovoClick(Sender: TObject);
+    procedure BtnCadCancelarClick(Sender: TObject);
+    procedure GrdConsultaDBTableView1DblClick(Sender: TObject);
+    procedure BtnCadExcluirClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -167,16 +170,34 @@ begin
   else
     GetAnteriorCliente(999999999);
 end;
+procedure TFrmMain.BtnCadCancelarClick(Sender: TObject);
+begin
+ EstadoBotoes(BOTAO_CANCELAR);
+ EdtCadCodigo.Enabled := True;
+end;
+
+procedure TFrmMain.BtnCadExcluirClick(Sender: TObject);
+begin
+  EdtCadCodigo.Enabled := True;
+end;
+
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
 begin
-//  InserirOuAlterar();
+  InserirOuAlterar();
   EstadoBotoes(BOTAO_INSERIR);
+  EdtCadCodigo.Enabled := True;
 end;
 
 procedure TFrmMain.BtnCadNovoClick(Sender: TObject);
 begin
   ResetarForm;
   EstadoBotoes(BOTAO_NOVO);
+  RgpCadTipoPessoa.Enabled := True;
+  RgpCadTipoPessoa.ItemIndex := 0;
+  //habilitar a guia de pessoa fisica
+
+  EdtCadCodigo.Text := '';
+  EdtCadCodigo.Enabled := False;
 end;
 
 procedure TFrmMain.BtnCadProximoClick(Sender: TObject);
@@ -199,7 +220,7 @@ begin
       BtnCadExcluir.Enabled  := False;
       BtnCadCancelar.Enabled := True;
    end;
-   2 or 3 or 4 : begin
+   2..4 : begin
       BtnCadNovo.Enabled     := True;
       BtnCadInserir.Enabled  := False;
       BtnCadExcluir.Enabled  := False;
@@ -354,6 +375,17 @@ begin
     if Cliente <> Nil then
       FreeAndNil(Cliente);
   end;
+end;
+
+procedure TFrmMain.GrdConsultaDBTableView1DblClick(Sender: TObject);
+  var Db : TcxGridDBTableView;
+begin
+  ResetarForm;
+  Db :=  GrdConsultaDBTableView1;
+  GetCliente(Db.DataController.Values[DB.DataController.FocusedRecordIndex, 0]);
+  Db := Nil;
+  Db.Free;
+  PgcMain.TabIndex := 0;
 end;
 
 procedure TFrmMain.InserirOuAlterar;

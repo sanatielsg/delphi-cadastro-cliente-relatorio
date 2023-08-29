@@ -21,7 +21,7 @@ object FrmMain: TFrmMain
     Top = 0
     Width = 490
     Height = 419
-    ActivePage = TabSheet1
+    ActivePage = TSCadastro
     Align = alClient
     TabOrder = 0
     object TSCadastro: TTabSheet
@@ -35,7 +35,7 @@ object FrmMain: TFrmMain
         TabOrder = 0
         object BtnCadInserir: TButton
           Left = 82
-          Top = 4
+          Top = 2
           Width = 73
           Height = 57
           Caption = 'Inserir'
@@ -73,6 +73,7 @@ object FrmMain: TFrmMain
           ImageMargins.Top = 10
           Images = ImageList
           TabOrder = 2
+          OnClick = BtnCadExcluirClick
         end
         object BtnCadCancelar: TButton
           Left = 240
@@ -86,6 +87,7 @@ object FrmMain: TFrmMain
           ImageMargins.Top = 10
           Images = ImageList
           TabOrder = 3
+          OnClick = BtnCadCancelarClick
         end
         object PnlNavegador: TPanel
           Left = 319
@@ -458,7 +460,9 @@ object FrmMain: TFrmMain
         Height = 302
         Align = alClient
         TabOrder = 2
+        ExplicitTop = 51
         object GrdConsultaDBTableView1: TcxGridDBTableView
+          OnDblClick = GrdConsultaDBTableView1DblClick
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = DM.DSConsultaClientes
           DataController.Summary.DefaultGroupSummaryItems = <>

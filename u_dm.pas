@@ -199,7 +199,6 @@ begin
     Close;
     SQL.Clear;
     SQL.Add(sqlTmp);
-    ParamByName('cli_codigo').AsInteger       := Value.Codigo;
     ParamByName('cli_nome').AsString          := Value.Nome;
     ParamByName('cli_cpf').AsString           := Value.CPF;
     ParamByName('cli_rg').AsString            := Value.RG;

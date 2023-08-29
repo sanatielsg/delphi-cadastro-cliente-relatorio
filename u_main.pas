@@ -183,7 +183,7 @@ end;
 
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
 begin
-//  InserirOuAlterar();
+  InserirOuAlterar();
   EstadoBotoes(BOTAO_INSERIR);
   EdtCadCodigo.Enabled := True;
 end;
@@ -192,6 +192,11 @@ procedure TFrmMain.BtnCadNovoClick(Sender: TObject);
 begin
   ResetarForm;
   EstadoBotoes(BOTAO_NOVO);
+  RgpCadTipoPessoa.Enabled := True;
+  RgpCadTipoPessoa.ItemIndex := 0;
+  //habilitar a guia de pessoa fisica
+  GbxCadPF.Enabled := True;
+
   EdtCadCodigo.Text := '';
   EdtCadCodigo.Enabled := False;
 end;
