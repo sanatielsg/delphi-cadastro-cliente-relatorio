@@ -10,9 +10,11 @@ object FrmMain: TFrmMain
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = [fsBold]
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -116,6 +118,7 @@ object FrmMain: TFrmMain
             ImageIndex = 4
             Images = ImageList
             TabOrder = 1
+            OnClick = BtnCadPrimeiroClick
           end
           object BtnCadProximo: TButton
             Left = 81
@@ -137,6 +140,7 @@ object FrmMain: TFrmMain
             ImageIndex = 6
             Images = ImageList
             TabOrder = 3
+            OnClick = BtnCadUltimoClick
           end
         end
       end
@@ -176,6 +180,7 @@ object FrmMain: TFrmMain
             'F'#237'sica'
             'Jur'#237'dica')
           TabOrder = 1
+          OnClick = RgpCadTipoPessoaClick
         end
         object PgcDados: TPageControl
           Left = 9
@@ -466,7 +471,6 @@ object FrmMain: TFrmMain
         Height = 302
         Align = alClient
         TabOrder = 2
-        ExplicitTop = 51
         object GrdConsultaDBTableView1: TcxGridDBTableView
           OnDblClick = GrdConsultaDBTableView1DblClick
           Navigator.Buttons.CustomButtons = <>
@@ -586,6 +590,7 @@ object FrmMain: TFrmMain
           Height = 25
           Caption = 'Emitir'
           TabOrder = 1
+          OnClick = BrnRelAniversariantesClick
         end
       end
       object GroupBox2: TGroupBox
@@ -689,7 +694,7 @@ object FrmMain: TFrmMain
     Left = 284
     Top = 350
     Bitmap = {
-      494C010112006C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112007800780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1359,5 +1364,70 @@ object FrmMain: TFrmMain
   object cxLocalizer: TcxLocalizer
     Left = 348
     Top = 352
+  end
+  object frxRepAniversariantes: TfrxReport
+    Version = '6.7.9'
+    DataSet = frxDBDataset
+    DataSetName = 'frxDBDataset1'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 45167.696818773150000000
+    ReportOptions.LastChange = 45167.718298425930000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 316
+    Top = 296
+    Datasets = <
+      item
+        DataSet = frxDBDataset
+        DataSetName = 'frxDBDataset1'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        DataSet = frxDBDataset
+        DataSetName = 'frxDBDataset1'
+        RowCount = 0
+      end
+    end
+  end
+  object frxDBDataset: TfrxDBDataset
+    UserName = 'frxDBDataset1'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'cli_nome=cli_nome'
+      'cli_data_nascimento=cli_data_nascimento'
+      'dia_aniversario=dia_aniversario'
+      'mes_aniversario=mes_aniversario')
+    DataSource = DM.DSAniversariantes
+    BCDToCurrency = False
+    Left = 380
+    Top = 286
   end
 end

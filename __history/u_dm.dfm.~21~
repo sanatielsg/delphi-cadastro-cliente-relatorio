@@ -100,45 +100,4 @@ object DM: TDM
     Left = 168
     Top = 216
   end
-  object QryAniversariantes: TFDQuery
-    Connection = Conn
-    SQL.Strings = (
-      'select '
-      'cli_nome'
-      ',cli_data_nascimento'
-      ',extract(day from cli_data_nascimento) as dia_aniversario '
-      ',extract(month from cli_data_nascimento) as mes_aniversario '
-      'from '
-      'cliente '
-      'where cli_tipo_pessoa = 1'
-      'and extract(month from cli_data_nascimento) = 9')
-    Left = 264
-    Top = 128
-    object QryAniversariantescli_nome: TWideStringField
-      FieldName = 'cli_nome'
-      Origin = 'cli_nome'
-      Size = 100
-    end
-    object QryAniversariantescli_data_nascimento: TDateField
-      FieldName = 'cli_data_nascimento'
-      Origin = 'cli_data_nascimento'
-    end
-    object QryAniversariantesdia_aniversario: TFloatField
-      AutoGenerateValue = arDefault
-      FieldName = 'dia_aniversario'
-      Origin = 'dia_aniversario'
-      ReadOnly = True
-    end
-    object QryAniversariantesmes_aniversario: TFloatField
-      AutoGenerateValue = arDefault
-      FieldName = 'mes_aniversario'
-      Origin = 'mes_aniversario'
-      ReadOnly = True
-    end
-  end
-  object DSAniversariantes: TDataSource
-    DataSet = QryAniversariantes
-    Left = 304
-    Top = 176
-  end
 end

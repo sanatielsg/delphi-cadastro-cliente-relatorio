@@ -27,7 +27,7 @@ uses
   cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, cxNavigator, cxDBData, cxGridLevel, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
-  u_util
+  u_util, frxClass, frxDBSet
   ;
 
 type
@@ -119,6 +119,8 @@ type
     BtnCadPrimeiro: TButton;
     BtnCadProximo: TButton;
     BtnCadUltimo: TButton;
+    frxRepAniversariantes: TfrxReport;
+    frxDBDataset: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -132,6 +134,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure BtnCadUltimoClick(Sender: TObject);
     procedure BtnCadPrimeiroClick(Sender: TObject);
+    procedure BrnRelAniversariantesClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -166,6 +169,11 @@ implementation
 {$R *.dfm}
 
 { TFrmMain }
+
+procedure TFrmMain.BrnRelAniversariantesClick(Sender: TObject);
+begin
+  frxRepAniversariantes.ShowReport(True);
+end;
 
 procedure TFrmMain.BtnCadAnteriorClick(Sender: TObject);
   var pos: integer;

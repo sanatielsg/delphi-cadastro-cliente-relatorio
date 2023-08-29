@@ -114,26 +114,68 @@ object DM: TDM
       'and extract(month from cli_data_nascimento) = 9')
     Left = 264
     Top = 128
-    object QryAniversariantescli_nome: TWideStringField
+    object IntegerField1: TIntegerField
+      FieldName = 'cli_codigo'
+      Origin = 'cli_codigo'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object WideStringField1: TWideStringField
       FieldName = 'cli_nome'
       Origin = 'cli_nome'
       Size = 100
     end
-    object QryAniversariantescli_data_nascimento: TDateField
-      FieldName = 'cli_data_nascimento'
-      Origin = 'cli_data_nascimento'
+    object WideStringField2: TWideStringField
+      FieldName = 'cli_cpf'
+      Origin = 'cli_cpf'
+      Size = 11
     end
-    object QryAniversariantesdia_aniversario: TFloatField
-      AutoGenerateValue = arDefault
-      FieldName = 'dia_aniversario'
-      Origin = 'dia_aniversario'
-      ReadOnly = True
+    object WideStringField3: TWideStringField
+      FieldName = 'cli_rg'
+      Origin = 'cli_rg'
     end
-    object QryAniversariantesmes_aniversario: TFloatField
-      AutoGenerateValue = arDefault
-      FieldName = 'mes_aniversario'
-      Origin = 'mes_aniversario'
-      ReadOnly = True
+    object WideStringField4: TWideStringField
+      FieldName = 'cli_cnpj'
+      Origin = 'cli_cnpj'
+      Size = 14
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'cli_tipo_pessoa'
+      Origin = 'cli_tipo_pessoa'
+    end
+    object WideStringField5: TWideStringField
+      FieldName = 'cli_endereco'
+      Origin = 'cli_endereco'
+      Size = 150
+    end
+    object WideStringField6: TWideStringField
+      FieldName = 'cli_numero'
+      Origin = 'cli_numero'
+      Size = 10
+    end
+    object WideStringField7: TWideStringField
+      FieldName = 'cli_cep'
+      Origin = 'cli_cep'
+      Size = 8
+    end
+    object WideStringField8: TWideStringField
+      FieldName = 'cli_cidade'
+      Origin = 'cli_cidade'
+      Size = 30
+    end
+    object WideStringField9: TWideStringField
+      FieldName = 'cli_uf'
+      Origin = 'cli_uf'
+      Size = 2
+    end
+    object BCDField1: TBCDField
+      FieldName = 'cli_limite_credito'
+      Origin = 'cli_limite_credito'
+      Precision = 10
+      Size = 2
+    end
+    object SQLTimeStampField1: TSQLTimeStampField
+      FieldName = 'cli_dthr_cadastro'
+      Origin = 'cli_dthr_cadastro'
     end
   end
   object DSAniversariantes: TDataSource

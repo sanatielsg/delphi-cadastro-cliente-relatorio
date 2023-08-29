@@ -30,6 +30,12 @@ type
     QryConsultaClientescli_limite_credito: TBCDField;
     QryConsultaClientescli_dthr_cadastro: TSQLTimeStampField;
     DSConsultaClientes: TDataSource;
+    QryAniversariantes: TFDQuery;
+    DSAniversariantes: TDataSource;
+    QryAniversariantescli_nome: TWideStringField;
+    QryAniversariantescli_data_nascimento: TDateField;
+    QryAniversariantesdia_aniversario: TFloatField;
+    QryAniversariantesmes_aniversario: TFloatField;
   private
     { Private declarations }
   public

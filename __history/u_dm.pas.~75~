@@ -30,6 +30,20 @@ type
     QryConsultaClientescli_limite_credito: TBCDField;
     QryConsultaClientescli_dthr_cadastro: TSQLTimeStampField;
     DSConsultaClientes: TDataSource;
+    QryAniversariantes: TFDQuery;
+    IntegerField1: TIntegerField;
+    WideStringField1: TWideStringField;
+    WideStringField2: TWideStringField;
+    WideStringField3: TWideStringField;
+    WideStringField4: TWideStringField;
+    IntegerField2: TIntegerField;
+    WideStringField5: TWideStringField;
+    WideStringField6: TWideStringField;
+    WideStringField7: TWideStringField;
+    WideStringField8: TWideStringField;
+    WideStringField9: TWideStringField;
+    BCDField1: TBCDField;
+    SQLTimeStampField1: TSQLTimeStampField;
   private
     { Private declarations }
   public
@@ -126,7 +140,14 @@ function TDM.GetPrimeiro: TCliente;
       pos : integer;
 begin
   sqlTmp := 'select min(cli_codigo) as r from cliente';
-  //...
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    Open();
+    pos := FieldByName('r').AsInteger;
+  end;
   Result := Get(pos);
 end;
 
@@ -154,64 +175,75 @@ function TDM.GetUltimo: TCliente;
       pos : integer;
 begin
   sqlTmp := 'select max(cli_codigo) as r from cliente';
-  //...
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    Open();
+    pos := FieldByName('r').AsInteger;
+  end;
   Result := Get(pos);
 end;
 
 function TDM.Inserir(Value: TCliente): Integer;
-  var sql : string;
+  var sqlTmp : string;
 begin
-  sql := ' insert into cliente ( '
-  + ' cli_nome                  '
-  + ' cli_cpf                   '
-  + ' cli_rg                    '
-  + ' cli_cnpj                  '
-  + ' cli_tipo_pessoa           '
-  + ' cli_endereco              '
-  + ' cli_numero                '
-  + ' cli_cep                   '
-  + ' cli_cidade                '
-  + ' cli_uf                    '
-  + ' cli_limite_credito        '
-  + ' cli_razao_social          '
-  + ' cli_nome_fantasia         '
-  + ' cli_data_nascimento       '
-  + ') values (                  '
-  + ' :cli_nome,                 '
-  + ' :cli_cpf,                  '
-  + ' :cli_rg,                   '
-  + ' :cli_cnpj,                 '
-  + ' :cli_tipo_pessoa,          '
-  + ' :cli_endereco,             '
-  + ' :cli_numero,               '
-  + ' :cli_cep,                  '
-  + ' :cli_cidade,               '
-  + ' :cli_uf,                   '
-  + ' :cli_limite_credito        '
-  + ' ) ';
+  Result := 0;
+  sqlTmp := ' insert into cliente (  '
+       + '  cli_nome              '
+       + ' ,cli_cpf               '
+       + ' ,cli_rg                '
+       + ' ,cli_cnpj              '
+       + ' ,cli_tipo_pessoa       '
+       + ' ,cli_endereco          '
+       + ' ,cli_numero            '
+       + ' ,cli_cep               '
+       + ' ,cli_cidade            '
+       + ' ,cli_uf                '
+       + ' ,cli_limite_credito    '
+       + ' ,cli_razao_social      '
+       + ' ,cli_nome_fantasia     '
+       + ' ,cli_data_nascimento   '
+       + ') values (              '
+       + '  :cli_nome             '
+       + ' ,:cli_cpf              '
+       + ' ,:cli_rg               '
+       + ' ,:cli_cnpj             '
+       + ' ,:cli_tipo_pessoa      '
+       + ' ,:cli_endereco         '
+       + ' ,:cli_numero           '
+       + ' ,:cli_cep              '
+       + ' ,:cli_cidade           '
+       + ' ,:cli_uf               '
+       + ' ,:cli_limite_credito   '
+       + ' ,:cli_razao_social     '
+       + ' ,:cli_nome_fantasia    '
+       + ' ,:cli_data_nascimento  '
+       + ' ) ';
 
-   with Query do
-   begin
-     ParamByName('cli_codigo').AsInteger       := Value.Codigo;
-     ParamByName('cli_nome').AsString          := Value.Nome;
-     ParamByName('cli_cpf').AsString           := Value.CPF;
-     ParamByName('cli_rg').AsString            := Value.RG;
-     ParamByName('cli_cnpj').AsString          := Value.CNPJ;
-     ParamByName('cli_tipo_pessoa').AsInteger  := Value.TipoPessoa;
-     ParamByName('cli_endereco').AsString      := Value.Endereco;
-     ParamByName('cli_numero').AsString        := Value.Numero;
-     ParamByName('cli_cep').AsString           := Value.CEP;
-     ParamByName('cli_cidade').AsString        := Value.Cidade;
-     ParamByName('cli_uf').AsString            := Value.UF;
-     ParamByName('cli_limite_credito').AsFloat := Value.LimiteCredito;
-     ParamByName('cli_razao_social').AsString  := Value.RazaoSocial;
-     ParamByName('cli_nome_fantasia').AsString := Value.NomeFantasia;
-     ParamByName('cli_data_nascimento').AsDate := Value.DataNascimento;
-
-
-   end;
-
-
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    ParamByName('cli_nome').AsString          := Value.Nome;
+    ParamByName('cli_cpf').AsString           := Value.CPF;
+    ParamByName('cli_rg').AsString            := Value.RG;
+    ParamByName('cli_cnpj').AsString          := Value.CNPJ;
+    ParamByName('cli_tipo_pessoa').AsInteger  := Value.TipoPessoa;
+    ParamByName('cli_endereco').AsString      := Value.Endereco;
+    ParamByName('cli_numero').AsString        := Value.Numero;
+    ParamByName('cli_cep').AsString           := Value.CEP;
+    ParamByName('cli_cidade').AsString        := Value.Cidade;
+    ParamByName('cli_uf').AsString            := Value.UF;
+    ParamByName('cli_limite_credito').AsFloat := Value.LimiteCredito;
+    ParamByName('cli_razao_social').AsString  := Value.RazaoSocial;
+    ParamByName('cli_nome_fantasia').AsString := Value.NomeFantasia;
+    ParamByName('cli_data_nascimento').AsDate := Value.DataNascimento;
+    ExecSQL;
+    Result := RowsAffected;
+  end;
 end;
 
 end.

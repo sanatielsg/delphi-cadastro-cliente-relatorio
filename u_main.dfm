@@ -471,7 +471,6 @@ object FrmMain: TFrmMain
         Height = 302
         Align = alClient
         TabOrder = 2
-        ExplicitTop = 51
         object GrdConsultaDBTableView1: TcxGridDBTableView
           OnDblClick = GrdConsultaDBTableView1DblClick
           Navigator.Buttons.CustomButtons = <>
@@ -591,6 +590,7 @@ object FrmMain: TFrmMain
           Height = 25
           Caption = 'Emitir'
           TabOrder = 1
+          OnClick = BrnRelAniversariantesClick
         end
       end
       object GroupBox2: TGroupBox
@@ -694,7 +694,7 @@ object FrmMain: TFrmMain
     Left = 284
     Top = 350
     Bitmap = {
-      494C010112006C006C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112007800780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1364,5 +1364,138 @@ object FrmMain: TFrmMain
   object cxLocalizer: TcxLocalizer
     Left = 348
     Top = 352
+  end
+  object frxRepAniversariantes: TfrxReport
+    Version = '6.7.9'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 45167.853840937500000000
+    ReportOptions.LastChange = 45167.856631921300000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      ''
+      'begin'
+      ''
+      'end.')
+    Left = 316
+    Top = 296
+    Datasets = <
+      item
+        DataSet = frxDBDataset
+        DataSetName = 'frxDBDataset1'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 18.897650000000000000
+        Top = 98.267780000000000000
+        Width = 718.110700000000000000
+        DataSet = frxDBDataset
+        DataSetName = 'frxDBDataset1'
+        RowCount = 0
+        object frxDBDataset1cli_nome: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          DataField = 'cli_nome'
+          DataSet = frxDBDataset
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."cli_nome"]')
+        end
+        object frxDBDataset1dia_aniversario: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 427.086890000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataField = 'dia_aniversario'
+          DataSet = frxDBDataset
+          DataSetName = 'frxDBDataset1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."dia_aniversario"]')
+          ParentFont = False
+        end
+      end
+      object PageHeader1: TfrxPageHeader
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 18.897650000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Cliente')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          AllowVectorExport = True
+          Left = 427.086890000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Dia')
+          ParentFont = False
+        end
+      end
+    end
+  end
+  object frxDBDataset: TfrxDBDataset
+    UserName = 'frxDBDataset1'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'cli_nome=cli_nome'
+      'cli_data_nascimento=cli_data_nascimento'
+      'dia_aniversario=dia_aniversario'
+      'mes_aniversario=mes_aniversario')
+    DataSource = DM.DSAniversariantes
+    BCDToCurrency = False
+    Left = 380
+    Top = 286
   end
 end
