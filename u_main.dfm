@@ -10,9 +10,11 @@ object FrmMain: TFrmMain
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = [fsBold]
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -116,6 +118,7 @@ object FrmMain: TFrmMain
             ImageIndex = 4
             Images = ImageList
             TabOrder = 1
+            OnClick = BtnCadPrimeiroClick
           end
           object BtnCadProximo: TButton
             Left = 81
@@ -137,6 +140,7 @@ object FrmMain: TFrmMain
             ImageIndex = 6
             Images = ImageList
             TabOrder = 3
+            OnClick = BtnCadUltimoClick
           end
         end
       end
@@ -176,6 +180,7 @@ object FrmMain: TFrmMain
             'F'#237'sica'
             'Jur'#237'dica')
           TabOrder = 1
+          OnClick = RgpCadTipoPessoaClick
         end
         object PgcDados: TPageControl
           Left = 9

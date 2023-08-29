@@ -127,6 +127,8 @@ type
     procedure BtnCadNovoClick(Sender: TObject);
     procedure BtnCadCancelarClick(Sender: TObject);
     procedure GrdConsultaDBTableView1DblClick(Sender: TObject);
+    procedure BtnCadExcluirClick(Sender: TObject);
+    procedure RgpCadTipoPessoaClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -152,6 +154,8 @@ const
   BOTAO_EXCLUIR   = 3;
   BOTAO_CANCELAR  = 4;
   BOTAO_CONSULTAR = 5;
+  TIPO_PF = 0;
+  TIPO_PJ = 1;
 
 implementation
 
@@ -172,18 +176,33 @@ end;
 procedure TFrmMain.BtnCadCancelarClick(Sender: TObject);
 begin
  EstadoBotoes(BOTAO_CANCELAR);
+ EdtCadCodigo.Enabled := True;
+ ResetarForm;
+end;
+
+procedure TFrmMain.BtnCadExcluirClick(Sender: TObject);
+begin
+  EdtCadCodigo.Enabled := True;
 end;
 
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
 begin
-//  InserirOuAlterar();
+  InserirOuAlterar();
   EstadoBotoes(BOTAO_INSERIR);
+  EdtCadCodigo.Enabled := True;
 end;
 
 procedure TFrmMain.BtnCadNovoClick(Sender: TObject);
 begin
   ResetarForm;
   EstadoBotoes(BOTAO_NOVO);
+  RgpCadTipoPessoa.Enabled := True;
+  RgpCadTipoPessoa.ItemIndex := 0;
+  //habilitar a guia de pessoa fisica
+  GbxCadPF.Enabled := True;
+
+  EdtCadCodigo.Text := '';
+  EdtCadCodigo.Enabled := False;
 end;
 
 procedure TFrmMain.BtnCadProximoClick(Sender: TObject);
@@ -366,10 +385,12 @@ end;
 procedure TFrmMain.GrdConsultaDBTableView1DblClick(Sender: TObject);
   var Db : TcxGridDBTableView;
 begin
+  ResetarForm;
   Db :=  GrdConsultaDBTableView1;
   GetCliente(Db.DataController.Values[DB.DataController.FocusedRecordIndex, 0]);
   Db := Nil;
   Db.Free;
+  PgcMain.TabIndex := 0;
 end;
 
 procedure TFrmMain.InserirOuAlterar;
@@ -395,6 +416,8 @@ begin
         if EdtCadLimite.Text <> '' then
           LimiteCredito := StrToFloat(EdtCadLimite.Text);
         DataNascimento := DTPCadDataNascimento.Date;
+        RazaoSocial := EdtCadRazaoSocial.Text;
+        NomeFantasia := EdtCadFantasia.Text;
       end;
       if (Cliente.Codigo = 0) then
         DM.Inserir(Cliente)
@@ -439,6 +462,21 @@ begin
   Resetar(GbxCadPJ);
   Resetar(GbxCadEndereco);
   Resetar(GbxCadFinanceiro);
+end;
+
+procedure TFrmMain.RgpCadTipoPessoaClick(Sender: TObject);
+begin
+    case RgpCadTipoPessoa.ItemIndex of
+      TIPO_PF: begin
+        GbxCadPF.Enabled := True;
+        GbxCadPJ.Enabled := False;
+      end;
+      TIPO_PJ: begin
+        GbxCadPF.Enabled := False;
+        GbxCadPJ.Enabled := True;
+      end;
+    end;
+    //ShowMessage( IntToStr(RgpCadTipoPessoa.ItemIndex) );
 end;
 
 end.

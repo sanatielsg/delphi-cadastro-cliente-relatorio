@@ -126,7 +126,14 @@ function TDM.GetPrimeiro: TCliente;
       pos : integer;
 begin
   sqlTmp := 'select min(cli_codigo) as r from cliente';
-  //...
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    Open();
+    pos := FieldByName('r').AsInteger;
+  end;
   Result := Get(pos);
 end;
 
@@ -154,7 +161,14 @@ function TDM.GetUltimo: TCliente;
       pos : integer;
 begin
   sqlTmp := 'select max(cli_codigo) as r from cliente';
-  //...
+  with Query do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(sqlTmp);
+    Open();
+    pos := FieldByName('r').AsInteger;
+  end;
   Result := Get(pos);
 end;
 

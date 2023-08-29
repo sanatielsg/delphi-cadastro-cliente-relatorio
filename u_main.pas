@@ -128,6 +128,10 @@ type
     procedure BtnCadCancelarClick(Sender: TObject);
     procedure GrdConsultaDBTableView1DblClick(Sender: TObject);
     procedure BtnCadExcluirClick(Sender: TObject);
+    procedure RgpCadTipoPessoaClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure BtnCadUltimoClick(Sender: TObject);
+    procedure BtnCadPrimeiroClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -141,7 +145,8 @@ type
     procedure Resetar(Value : TGroupBox);
     procedure ResetarForm();
     procedure EstadoBotoes(Value : integer);
-
+    procedure GetUltimoCliente();
+    procedure GetPrimeiroCliente();
   end;
 
 var
@@ -153,6 +158,8 @@ const
   BOTAO_EXCLUIR   = 3;
   BOTAO_CANCELAR  = 4;
   BOTAO_CONSULTAR = 5;
+  TIPO_PF = 0;
+  TIPO_PJ = 1;
 
 implementation
 
@@ -174,6 +181,7 @@ procedure TFrmMain.BtnCadCancelarClick(Sender: TObject);
 begin
  EstadoBotoes(BOTAO_CANCELAR);
  EdtCadCodigo.Enabled := True;
+ ResetarForm;
 end;
 
 procedure TFrmMain.BtnCadExcluirClick(Sender: TObject);
@@ -186,6 +194,7 @@ begin
   InserirOuAlterar();
   EstadoBotoes(BOTAO_INSERIR);
   EdtCadCodigo.Enabled := True;
+  ResetarForm;
 end;
 
 procedure TFrmMain.BtnCadNovoClick(Sender: TObject);
@@ -194,11 +203,16 @@ begin
   EstadoBotoes(BOTAO_NOVO);
   RgpCadTipoPessoa.Enabled := True;
   RgpCadTipoPessoa.ItemIndex := 0;
-  //habilitar a guia de pessoa fisica
   GbxCadPF.Enabled := True;
-
   EdtCadCodigo.Text := '';
   EdtCadCodigo.Enabled := False;
+  EdtCadNome.SetFocus;
+end;
+
+procedure TFrmMain.BtnCadPrimeiroClick(Sender: TObject);
+begin
+  ResetarForm;
+  GetPrimeiroCliente;
 end;
 
 procedure TFrmMain.BtnCadProximoClick(Sender: TObject);
@@ -210,6 +224,12 @@ begin
     GetProximoCliente(StrToInt(EdtCadCodigo.Text))
   else
     GetProximoCliente(0);
+end;
+
+procedure TFrmMain.BtnCadUltimoClick(Sender: TObject);
+begin
+  ResetarForm;
+  GetUltimoCliente();
 end;
 
 procedure TFrmMain.EstadoBotoes(Value: integer);
@@ -238,6 +258,15 @@ if FileExists(ExtractFilePath(Application.ExeName)+'\TraducaoDev2.ini') then {Ve
         cxLocalizer.LanguageIndex := 1; {Muda o idioma / linguagem}
         cxLocalizer.Active := TRUE;     {Ativa o componente / a tradução}
     end;
+end;
+
+procedure TFrmMain.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(WM_NEXTDLGCTL, 0, 0);
+  end;
 end;
 
 procedure TFrmMain.FormShow(Sender: TObject);
@@ -334,6 +363,50 @@ begin
   end;
 end;
 
+procedure TFrmMain.GetPrimeiroCliente;
+ var Cliente :TCliente;
+begin
+  Cliente := Nil;
+  try
+    try
+      Cliente := DM.GetPrimeiro;
+      if Cliente <> Nil then
+      begin
+        with Cliente do
+        begin
+          EdtCadCodigo.Text := IntToStr(Codigo);
+          RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+          if TipoPessoa = 1 then
+          begin
+            EdtCadNome.Text           := Nome;
+            EdtCadCPF.Text            := CPF;
+            EdtCadRG.Text             := RG;
+            DTPCadDataNascimento.Date := DataNascimento;
+          end
+          else if TipoPessoa = 2 then
+          begin
+            EdtCadRazaoSocial.Text := RazaoSocial;
+            EdtCadFantasia.Text := NomeFantasia;
+            EdtCadCNPJ.Text := CNPJ;
+          end;
+          EdtCadEndereco.Text := Endereco;
+          EdtCadNumero.Text   := Numero;
+          EdtCadCEP.Text      := CEP;
+          EdtCadCidade.Text   := Cidade;
+          EdtCadUF.Text       := UF;
+          EdtCadLimite.Text   := FloatToStr(LimiteCredito);
+        end;
+      end;
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro: '+E.Message);
+    end;
+  finally
+    if Cliente <> Nil then
+      FreeAndNil(Cliente);
+  end;
+end;
+
 procedure TFrmMain.GetProximoCliente(Value: integer);
   var Cliente :TCliente;
 begin
@@ -341,6 +414,50 @@ begin
   try
     try
       Cliente := DM.GetProximo(Value);
+      if Cliente <> Nil then
+      begin
+        with Cliente do
+        begin
+          EdtCadCodigo.Text := IntToStr(Codigo);
+          RgpCadTipoPessoa.ItemIndex := TipoPessoa-1;
+          if TipoPessoa = 1 then
+          begin
+            EdtCadNome.Text           := Nome;
+            EdtCadCPF.Text            := CPF;
+            EdtCadRG.Text             := RG;
+            DTPCadDataNascimento.Date := DataNascimento;
+          end
+          else if TipoPessoa = 2 then
+          begin
+            EdtCadRazaoSocial.Text := RazaoSocial;
+            EdtCadFantasia.Text := NomeFantasia;
+            EdtCadCNPJ.Text := CNPJ;
+          end;
+          EdtCadEndereco.Text := Endereco;
+          EdtCadNumero.Text   := Numero;
+          EdtCadCEP.Text      := CEP;
+          EdtCadCidade.Text   := Cidade;
+          EdtCadUF.Text       := UF;
+          EdtCadLimite.Text   := FloatToStr(LimiteCredito);
+        end;
+      end;
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro: '+E.Message);
+    end;
+  finally
+    if Cliente <> Nil then
+      FreeAndNil(Cliente);
+  end;
+end;
+
+procedure TFrmMain.GetUltimoCliente;
+ var Cliente :TCliente;
+begin
+  Cliente := Nil;
+  try
+    try
+      Cliente := DM.GetUltimo;
       if Cliente <> Nil then
       begin
         with Cliente do
@@ -403,7 +520,7 @@ begin
         CPF        := TUtil.RemoveMascara(EdtCadCPF);
         RG         := EdtCadRG.Text;
         CNPJ       := TUtil.RemoveMascara(EdtCadCNPJ);
-        TipoPessoa := RgpCadTipoPessoa.ItemIndex;
+        TipoPessoa := RgpCadTipoPessoa.ItemIndex + 1;
         Endereco   := EdtCadEndereco.Text;
         Numero     := EdtCadNumero.Text;
         CEP        := TUtil.RemoveMascara(EdtCadCEP);
@@ -412,6 +529,8 @@ begin
         if EdtCadLimite.Text <> '' then
           LimiteCredito := StrToFloat(EdtCadLimite.Text);
         DataNascimento := DTPCadDataNascimento.Date;
+        RazaoSocial    := EdtCadRazaoSocial.Text;
+        NomeFantasia   := EdtCadFantasia.Text;
       end;
       if (Cliente.Codigo = 0) then
         DM.Inserir(Cliente)
@@ -456,6 +575,20 @@ begin
   Resetar(GbxCadPJ);
   Resetar(GbxCadEndereco);
   Resetar(GbxCadFinanceiro);
+end;
+
+procedure TFrmMain.RgpCadTipoPessoaClick(Sender: TObject);
+begin
+    case RgpCadTipoPessoa.ItemIndex of
+      TIPO_PF: begin
+        GbxCadPF.Enabled := True;
+        GbxCadPJ.Enabled := False;
+      end;
+      TIPO_PJ: begin
+        GbxCadPF.Enabled := False;
+        GbxCadPJ.Enabled := True;
+      end;
+    end;
 end;
 
 end.

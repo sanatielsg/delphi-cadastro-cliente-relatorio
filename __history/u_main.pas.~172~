@@ -128,6 +128,7 @@ type
     procedure BtnCadCancelarClick(Sender: TObject);
     procedure GrdConsultaDBTableView1DblClick(Sender: TObject);
     procedure BtnCadExcluirClick(Sender: TObject);
+    procedure RgpCadTipoPessoaClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -153,6 +154,8 @@ const
   BOTAO_EXCLUIR   = 3;
   BOTAO_CANCELAR  = 4;
   BOTAO_CONSULTAR = 5;
+  TIPO_PF = 0;
+  TIPO_PJ = 1;
 
 implementation
 
@@ -174,6 +177,7 @@ procedure TFrmMain.BtnCadCancelarClick(Sender: TObject);
 begin
  EstadoBotoes(BOTAO_CANCELAR);
  EdtCadCodigo.Enabled := True;
+ ResetarForm;
 end;
 
 procedure TFrmMain.BtnCadExcluirClick(Sender: TObject);
@@ -192,8 +196,12 @@ procedure TFrmMain.BtnCadNovoClick(Sender: TObject);
 begin
   ResetarForm;
   EstadoBotoes(BOTAO_NOVO);
+  RgpCadTipoPessoa.Enabled := True;
+  RgpCadTipoPessoa.ItemIndex := 0;
+  GbxCadPF.Enabled := True;
   EdtCadCodigo.Text := '';
   EdtCadCodigo.Enabled := False;
+  EdtCadNome.SetFocus;
 end;
 
 procedure TFrmMain.BtnCadProximoClick(Sender: TObject);
@@ -398,7 +406,7 @@ begin
         CPF        := TUtil.RemoveMascara(EdtCadCPF);
         RG         := EdtCadRG.Text;
         CNPJ       := TUtil.RemoveMascara(EdtCadCNPJ);
-        TipoPessoa := RgpCadTipoPessoa.ItemIndex;
+        TipoPessoa := RgpCadTipoPessoa.ItemIndex + 1;
         Endereco   := EdtCadEndereco.Text;
         Numero     := EdtCadNumero.Text;
         CEP        := TUtil.RemoveMascara(EdtCadCEP);
@@ -407,6 +415,8 @@ begin
         if EdtCadLimite.Text <> '' then
           LimiteCredito := StrToFloat(EdtCadLimite.Text);
         DataNascimento := DTPCadDataNascimento.Date;
+        RazaoSocial    := EdtCadRazaoSocial.Text;
+        NomeFantasia   := EdtCadFantasia.Text;
       end;
       if (Cliente.Codigo = 0) then
         DM.Inserir(Cliente)
@@ -451,6 +461,20 @@ begin
   Resetar(GbxCadPJ);
   Resetar(GbxCadEndereco);
   Resetar(GbxCadFinanceiro);
+end;
+
+procedure TFrmMain.RgpCadTipoPessoaClick(Sender: TObject);
+begin
+    case RgpCadTipoPessoa.ItemIndex of
+      TIPO_PF: begin
+        GbxCadPF.Enabled := True;
+        GbxCadPJ.Enabled := False;
+      end;
+      TIPO_PJ: begin
+        GbxCadPF.Enabled := False;
+        GbxCadPJ.Enabled := True;
+      end;
+    end;
 end;
 
 end.
