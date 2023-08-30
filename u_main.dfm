@@ -694,7 +694,7 @@ object FrmMain: TFrmMain
     Left = 284
     Top = 350
     Bitmap = {
-      494C010112007800780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112007C007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1374,7 +1374,7 @@ object FrmMain: TFrmMain
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 45167.853840937500000000
-    ReportOptions.LastChange = 45167.856631921300000000
+    ReportOptions.LastChange = 45167.973359490700000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -1408,7 +1408,7 @@ object FrmMain: TFrmMain
         FillType = ftBrush
         Frame.Typ = []
         Height = 18.897650000000000000
-        Top = 98.267780000000000000
+        Top = 166.299320000000000000
         Width = 718.110700000000000000
         DataSet = frxDBDataset
         DataSetName = 'frxDBDataset1'
@@ -1450,7 +1450,7 @@ object FrmMain: TFrmMain
         FillType = ftBrush
         Frame.Typ = []
         Height = 18.897650000000000000
-        Top = 18.897650000000000000
+        Top = 86.929190000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           AllowVectorExport = True
@@ -1480,6 +1480,52 @@ object FrmMain: TFrmMain
           Frame.Typ = []
           Memo.UTF8W = (
             'Dia')
+          ParentFont = False
+        end
+      end
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 45.354360000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo3: TfrxMemoView
+          AllowVectorExport = True
+          Left = 11.338590000000000000
+          Top = 3.779530000000000000
+          Width = 381.732530000000000000
+          Height = 30.236240000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -24
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Relat'#243'rio de Aniversariantes')
+          ParentFont = False
+        end
+      end
+      object PageFooter1: TfrxPageFooter
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 245.669450000000000000
+        Width = 718.110700000000000000
+        object Memo4: TfrxMemoView
+          AllowVectorExport = True
+          Left = 529.134200000000000000
+          Top = 1.779530000000000000
+          Width = 173.858380000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[Date] [Time]')
           ParentFont = False
         end
       end

@@ -150,6 +150,7 @@ type
     procedure EstadoBotoes(Value : integer);
     procedure GetUltimoCliente();
     procedure GetPrimeiroCliente();
+    procedure Conectar();
   end;
 
 var
@@ -240,6 +241,18 @@ begin
   GetUltimoCliente();
 end;
 
+procedure TFrmMain.Conectar;
+begin
+  DM.Conn.Params.Add('Server=127.0.0.1');
+  DM.Conn.Params.Add('Port=5432');
+  DM.Conn.Params.Add('Database=programa');
+  DM.Conn.Params.Add('User_Name=postgres');
+  DM.Conn.Params.Add('Password=Super@321');
+  DM.FDPhysPgDriverLink.VendorHome := 'C:\Program Files (x86)\PostgreSQL\9.6';
+  DM.FDPhysPgDriverLink.VendorLib := 'libpq.dll';
+  DM.Conn.Connected := True;
+end;
+
 procedure TFrmMain.EstadoBotoes(Value: integer);
 begin
   case Value of
@@ -279,6 +292,7 @@ end;
 
 procedure TFrmMain.FormShow(Sender: TObject);
 begin
+  Conectar();
   PnlNavegador.Enabled := True;
   BtnCadNovo.Enabled := True;
 end;
