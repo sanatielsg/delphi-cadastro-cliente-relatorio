@@ -312,6 +312,7 @@ begin
   Conectar();
   PnlNavegador.Enabled := True;
   BtnCadNovo.Enabled := True;
+  DM.QryConsultaClientes.Open();
 end;
 
 procedure TFrmMain.GetAnteriorCliente(Value: integer);
