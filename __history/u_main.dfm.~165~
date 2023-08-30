@@ -187,7 +187,7 @@ object FrmMain: TFrmMain
           Top = 66
           Width = 465
           Height = 254
-          ActivePage = TabSheet2
+          ActivePage = TabSheet4
           TabOrder = 2
           object TabSheet2: TTabSheet
             Caption = 'Pessoa F'#237'sica'
@@ -694,7 +694,7 @@ object FrmMain: TFrmMain
     Left = 284
     Top = 350
     Bitmap = {
-      494C010112007800780010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010112007C007C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1367,18 +1367,17 @@ object FrmMain: TFrmMain
   end
   object frxRepAniversariantes: TfrxReport
     Version = '6.7.9'
-    DataSet = frxDBDataset
-    DataSetName = 'frxDBDataset1'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 45167.696818773150000000
-    ReportOptions.LastChange = 45167.718298425930000000
+    ReportOptions.CreateDate = 45167.853840937500000000
+    ReportOptions.LastChange = 45167.973359490700000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
+      ''
       'begin'
       ''
       'end.')
@@ -1405,18 +1404,11 @@ object FrmMain: TFrmMain
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
       MirrorMode = []
-      object ReportTitle1: TfrxReportTitle
-        FillType = ftBrush
-        Frame.Typ = []
-        Height = 22.677180000000000000
-        Top = 18.897650000000000000
-        Width = 718.110700000000000000
-      end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
         Frame.Typ = []
-        Height = 22.677180000000000000
-        Top = 102.047310000000000000
+        Height = 18.897650000000000000
+        Top = 166.299320000000000000
         Width = 718.110700000000000000
         DataSet = frxDBDataset
         DataSetName = 'frxDBDataset1'
@@ -1424,7 +1416,7 @@ object FrmMain: TFrmMain
         object frxDBDataset1cli_nome: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 7.559060000000000000
+          Left = 3.779530000000000000
           Width = 400.630180000000000000
           Height = 18.897650000000000000
           DataField = 'cli_nome'
@@ -1433,6 +1425,108 @@ object FrmMain: TFrmMain
           Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBDataset1."cli_nome"]')
+        end
+        object frxDBDataset1dia_aniversario: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 427.086890000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataField = 'dia_aniversario'
+          DataSet = frxDBDataset
+          DataSetName = 'frxDBDataset1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."dia_aniversario"]')
+          ParentFont = False
+        end
+      end
+      object PageHeader1: TfrxPageHeader
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 18.897650000000000000
+        Top = 86.929190000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Cliente')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          AllowVectorExport = True
+          Left = 427.086890000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Dia')
+          ParentFont = False
+        end
+      end
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 45.354360000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo3: TfrxMemoView
+          AllowVectorExport = True
+          Left = 11.338590000000000000
+          Top = 3.779530000000000000
+          Width = 381.732530000000000000
+          Height = 30.236240000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -24
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Relat'#243'rio de Aniversariantes')
+          ParentFont = False
+        end
+      end
+      object PageFooter1: TfrxPageFooter
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 245.669450000000000000
+        Width = 718.110700000000000000
+        object Memo4: TfrxMemoView
+          AllowVectorExport = True
+          Left = 529.134200000000000000
+          Top = 1.779530000000000000
+          Width = 173.858380000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[Date] [Time]')
+          ParentFont = False
         end
       end
     end

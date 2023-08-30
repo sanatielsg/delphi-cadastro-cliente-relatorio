@@ -152,6 +152,7 @@ type
     procedure GetUltimoCliente();
     procedure GetPrimeiroCliente();
     procedure Conectar();
+    procedure Excluir();
   end;
 
 var
@@ -193,11 +194,14 @@ begin
  EstadoBotoes(BOTAO_CANCELAR);
  EdtCadCodigo.Enabled := True;
  ResetarForm;
+ EdtCadCodigo.Text := '';
+ EdtCadCodigo.SetFocus;
 end;
 
 procedure TFrmMain.BtnCadExcluirClick(Sender: TObject);
 begin
   EdtCadCodigo.Enabled := True;
+  Excluir();
 end;
 
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
@@ -267,14 +271,6 @@ begin
   DM.FDPhysPgDriverLink.VendorHome := Params[5];
   DM.FDPhysPgDriverLink.VendorLib := Params[6];
 
-{  DM.Conn.Params.Add('Server=127.0.0.1');
-  DM.Conn.Params.Add('Port=5432');
-  DM.Conn.Params.Add('Database=programa');
-  DM.Conn.Params.Add('User_Name=postgres');
-  DM.Conn.Params.Add('Password=Super@321');
-  DM.FDPhysPgDriverLink.VendorHome := 'C:\Program Files (x86)\PostgreSQL\9.6';
-  DM.FDPhysPgDriverLink.VendorLib := 'libpq.dll';}
-
   DM.Conn.Connected := True;
 end;
 
@@ -293,6 +289,31 @@ begin
       BtnCadExcluir.Enabled  := False;
       BtnCadCancelar.Enabled := False;
    end;
+   5 : begin
+      BtnCadNovo.Enabled     := False;
+      BtnCadInserir.Enabled  := True;
+      BtnCadInserir.Caption  := 'Alterar';
+      BtnCadExcluir.Enabled  := True;
+      BtnCadCancelar.Enabled := True;
+      PnlNavegador.Enabled := False;
+   end;
+
+  end;
+end;
+
+procedure TFrmMain.Excluir;
+  var Resultado : integer;
+begin
+  if EdtCadCodigo.Text <> '' then
+  begin
+    try
+      Resultado := DM.Delete(StrToInt(EdtCadCodigo.Text));
+      if Resultado > 0 then
+        ShowMessage('Registro excluido com sucesso!');
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro ao excluir: '+E.Message);
+    end;
   end;
 end;
 
@@ -320,6 +341,7 @@ begin
   Conectar();
   PnlNavegador.Enabled := True;
   BtnCadNovo.Enabled := True;
+  DM.QryConsultaClientes.Open();
 end;
 
 procedure TFrmMain.GetAnteriorCliente(Value: integer);
@@ -551,6 +573,7 @@ begin
   Db := Nil;
   Db.Free;
   PgcMain.TabIndex := 0;
+  EstadoBotoes(BOTAO_CONSULTAR);
 end;
 
 procedure TFrmMain.InserirOuAlterar;

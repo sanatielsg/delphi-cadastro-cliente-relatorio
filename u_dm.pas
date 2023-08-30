@@ -43,6 +43,7 @@ type
     function Inserir(Value : TCliente): Integer;
     function Alterar(Value : TCliente): Integer;
     function Get(Value : integer): TCliente;
+    function Delete(Value: Integer): Integer;
 
     function GetPrimeiro : TCliente;
     function GetUltimo : TCliente;
@@ -65,6 +66,11 @@ implementation
 function TDM.Alterar(Value: TCliente): Integer;
 begin
 
+end;
+
+function TDM.Delete(Value: Integer): Integer;
+begin
+  Result := 1;
 end;
 
 function TDM.Get(Value: integer): TCliente;

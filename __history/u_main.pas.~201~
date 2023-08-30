@@ -152,6 +152,7 @@ type
     procedure GetUltimoCliente();
     procedure GetPrimeiroCliente();
     procedure Conectar();
+    procedure Excluir();
   end;
 
 var
@@ -198,6 +199,7 @@ end;
 procedure TFrmMain.BtnCadExcluirClick(Sender: TObject);
 begin
   EdtCadCodigo.Enabled := True;
+  Excluir();
 end;
 
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
@@ -248,19 +250,25 @@ procedure TFrmMain.Conectar;
 begin
   Config := TIniFile.Create(GetCurrentDir+'\config.ini');
   try
-    Params[0] := Config.ReadString('Banco','server','127.0.0.1');
-
+    Params[0] := Config.ReadString('Banco','server','');
+    Params[1] := Config.ReadString('Banco','port','');
+    Params[2] := Config.ReadString('Banco','database','');
+    Params[3] := Config.ReadString('Banco','username','');
+    Params[4] := Config.ReadString('Banco','password','');
+    Params[5] := Config.ReadString('Banco','vendorhome','');
+    Params[6] := Config.ReadString('Banco','vendorlib','');
   finally
     FreeAndNil(Config);
   end;
 
-  DM.Conn.Params.Add('Server=127.0.0.1');
-  DM.Conn.Params.Add('Port=5432');
-  DM.Conn.Params.Add('Database=programa');
-  DM.Conn.Params.Add('User_Name=postgres');
-  DM.Conn.Params.Add('Password=Super@321');
-  DM.FDPhysPgDriverLink.VendorHome := 'C:\Program Files (x86)\PostgreSQL\9.6';
-  DM.FDPhysPgDriverLink.VendorLib := 'libpq.dll';
+  DM.Conn.Params.Add('Server='+Params[0]);
+  DM.Conn.Params.Add('Port='+Params[1]);
+  DM.Conn.Params.Add('Database='+Params[2]);
+  DM.Conn.Params.Add('User_Name='+Params[3]);
+  DM.Conn.Params.Add('Password='+Params[4]);
+  DM.FDPhysPgDriverLink.VendorHome := Params[5];
+  DM.FDPhysPgDriverLink.VendorLib := Params[6];
+
   DM.Conn.Connected := True;
 end;
 
@@ -279,6 +287,27 @@ begin
       BtnCadExcluir.Enabled  := False;
       BtnCadCancelar.Enabled := False;
    end;
+   5 : begin
+
+
+   end;
+
+  end;
+end;
+
+procedure TFrmMain.Excluir;
+  var Resultado : integer;
+begin
+  if EdtCadCodigo.Text <> '' then
+  begin
+    try
+      Resultado := DM.Delete(StrToInt(EdtCadCodigo.Text));
+      if Resultado > 0 then
+        ShowMessage('Registro excluido com sucesso!');
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro ao excluir: '+E.Message);
+    end;
   end;
 end;
 
@@ -306,6 +335,7 @@ begin
   Conectar();
   PnlNavegador.Enabled := True;
   BtnCadNovo.Enabled := True;
+  DM.QryConsultaClientes.Open();
 end;
 
 procedure TFrmMain.GetAnteriorCliente(Value: integer);
@@ -537,6 +567,7 @@ begin
   Db := Nil;
   Db.Free;
   PgcMain.TabIndex := 0;
+  EstadoBotoes(BOTAO_CONSULTAR);
 end;
 
 procedure TFrmMain.InserirOuAlterar;

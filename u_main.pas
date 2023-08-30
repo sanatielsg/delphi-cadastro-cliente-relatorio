@@ -152,6 +152,7 @@ type
     procedure GetUltimoCliente();
     procedure GetPrimeiroCliente();
     procedure Conectar();
+    procedure Excluir();
   end;
 
 var
@@ -193,11 +194,14 @@ begin
  EstadoBotoes(BOTAO_CANCELAR);
  EdtCadCodigo.Enabled := True;
  ResetarForm;
+ EdtCadCodigo.Text := '';
+ EdtCadCodigo.SetFocus;
 end;
 
 procedure TFrmMain.BtnCadExcluirClick(Sender: TObject);
 begin
   EdtCadCodigo.Enabled := True;
+  Excluir();
 end;
 
 procedure TFrmMain.BtnCadInserirClick(Sender: TObject);
@@ -216,6 +220,7 @@ begin
   RgpCadTipoPessoa.ItemIndex := 0;
   GbxCadPF.Enabled := True;
   EdtCadCodigo.Text := '';
+  BtnCadInserir.Caption := 'Inserir';
   EdtCadCodigo.Enabled := False;
   EdtCadNome.SetFocus;
 end;
@@ -285,6 +290,31 @@ begin
       BtnCadExcluir.Enabled  := False;
       BtnCadCancelar.Enabled := False;
    end;
+   5 : begin
+      BtnCadNovo.Enabled     := False;
+      BtnCadInserir.Enabled  := True;
+      BtnCadInserir.Caption  := 'Alterar';
+      BtnCadExcluir.Enabled  := True;
+      BtnCadCancelar.Enabled := True;
+      PnlNavegador.Enabled := False;
+   end;
+
+  end;
+end;
+
+procedure TFrmMain.Excluir;
+  var Resultado : integer;
+begin
+  if EdtCadCodigo.Text <> '' then
+  begin
+    try
+      Resultado := DM.Delete(StrToInt(EdtCadCodigo.Text));
+      if Resultado > 0 then
+        ShowMessage('Registro excluido com sucesso!');
+    except
+      on E:Exception do
+        ShowMessage('Ocorreu um erro ao excluir: '+E.Message);
+    end;
   end;
 end;
 
@@ -331,7 +361,9 @@ begin
           if TipoPessoa = 1 then
           begin
             EdtCadNome.Text           := Nome;
+            EdtCadCPF.EditMask        := '';
             EdtCadCPF.Text            := CPF;
+            EdtCadCPF.EditMask        := '999.999.999-99';
             EdtCadRG.Text             := RG;
             DTPCadDataNascimento.Date := DataNascimento;
           end
@@ -339,11 +371,15 @@ begin
           begin
             EdtCadRazaoSocial.Text := RazaoSocial;
             EdtCadFantasia.Text := NomeFantasia;
-            EdtCadCNPJ.Text := CNPJ;
+            EdtCadCNPJ.EditMask := '';
+            EdtCadCNPJ.Text     := CNPJ;
+            EdtCadCNPJ.EditMask := '99.999.999/9999-99';
           end;
           EdtCadEndereco.Text := Endereco;
           EdtCadNumero.Text   := Numero;
+          EdtCadCEP.EditMask  := '';
           EdtCadCEP.Text      := CEP;
+          EdtCadCEP.EditMask  := '99.999-999';
           EdtCadCidade.Text   := Cidade;
           EdtCadUF.Text       := UF;
           EdtCadLimite.Text   := FloatToStr(LimiteCredito);
@@ -375,7 +411,9 @@ begin
           if TipoPessoa = 1 then
           begin
             EdtCadNome.Text           := Nome;
+            EdtCadCPF.EditMask        := '';
             EdtCadCPF.Text            := CPF;
+            EdtCadCPF.EditMask        := '999.999.999-99';
             EdtCadRG.Text             := RG;
             DTPCadDataNascimento.Date := DataNascimento;
           end
@@ -383,11 +421,15 @@ begin
           begin
             EdtCadRazaoSocial.Text := RazaoSocial;
             EdtCadFantasia.Text := NomeFantasia;
-            EdtCadCNPJ.Text := CNPJ;
+            EdtCadCNPJ.EditMask := '';
+            EdtCadCNPJ.Text     := CNPJ;
+            EdtCadCNPJ.EditMask := '99.999.999/9999-99';
           end;
           EdtCadEndereco.Text := Endereco;
           EdtCadNumero.Text   := Numero;
+          EdtCadCEP.EditMask  := '';
           EdtCadCEP.Text      := CEP;
+          EdtCadCEP.EditMask  := '99.999-999';
           EdtCadCidade.Text   := Cidade;
           EdtCadUF.Text       := UF;
           EdtCadLimite.Text   := FloatToStr(LimiteCredito);
@@ -419,7 +461,9 @@ begin
           if TipoPessoa = 1 then
           begin
             EdtCadNome.Text           := Nome;
+            EdtCadCPF.EditMask        := '';
             EdtCadCPF.Text            := CPF;
+            EdtCadCPF.EditMask        := '999.999.999-99';
             EdtCadRG.Text             := RG;
             DTPCadDataNascimento.Date := DataNascimento;
           end
@@ -427,11 +471,15 @@ begin
           begin
             EdtCadRazaoSocial.Text := RazaoSocial;
             EdtCadFantasia.Text := NomeFantasia;
-            EdtCadCNPJ.Text := CNPJ;
+            EdtCadCNPJ.EditMask := '';
+            EdtCadCNPJ.Text     := CNPJ;
+            EdtCadCNPJ.EditMask := '99.999.999/9999-99';
           end;
           EdtCadEndereco.Text := Endereco;
           EdtCadNumero.Text   := Numero;
+          EdtCadCEP.EditMask  := '';
           EdtCadCEP.Text      := CEP;
+          EdtCadCEP.EditMask  := '99.999-999';
           EdtCadCidade.Text   := Cidade;
           EdtCadUF.Text       := UF;
           EdtCadLimite.Text   := FloatToStr(LimiteCredito);
@@ -463,7 +511,9 @@ begin
           if TipoPessoa = 1 then
           begin
             EdtCadNome.Text           := Nome;
+            EdtCadCPF.EditMask        := '';
             EdtCadCPF.Text            := CPF;
+            EdtCadCPF.EditMask        := '999.999.999-99';
             EdtCadRG.Text             := RG;
             DTPCadDataNascimento.Date := DataNascimento;
           end
@@ -471,11 +521,15 @@ begin
           begin
             EdtCadRazaoSocial.Text := RazaoSocial;
             EdtCadFantasia.Text := NomeFantasia;
-            EdtCadCNPJ.Text := CNPJ;
+            EdtCadCNPJ.EditMask := '';
+            EdtCadCNPJ.Text     := CNPJ;
+            EdtCadCNPJ.EditMask := '99.999.999/9999-99';
           end;
           EdtCadEndereco.Text := Endereco;
           EdtCadNumero.Text   := Numero;
+          EdtCadCEP.EditMask  := '';
           EdtCadCEP.Text      := CEP;
+          EdtCadCEP.EditMask  := '99.999-999';
           EdtCadCidade.Text   := Cidade;
           EdtCadUF.Text       := UF;
           EdtCadLimite.Text   := FloatToStr(LimiteCredito);
@@ -519,7 +573,9 @@ begin
           end;
           EdtCadEndereco.Text := Endereco;
           EdtCadNumero.Text   := Numero;
+          EdtCadCEP.EditMask  := '';
           EdtCadCEP.Text      := CEP;
+          EdtCadCEP.EditMask  := '99.999-999';
           EdtCadCidade.Text   := Cidade;
           EdtCadUF.Text       := UF;
           EdtCadLimite.Text   := FloatToStr(LimiteCredito);
@@ -544,6 +600,7 @@ begin
   Db := Nil;
   Db.Free;
   PgcMain.TabIndex := 0;
+  EstadoBotoes(BOTAO_CONSULTAR);
 end;
 
 procedure TFrmMain.InserirOuAlterar;
