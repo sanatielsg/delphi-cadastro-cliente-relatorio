@@ -27,7 +27,8 @@ uses
   cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, cxNavigator, cxDBData, cxGridLevel, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
-  u_util, frxClass, frxDBSet
+  u_util, frxClass, frxDBSet,
+  System.IniFiles
   ;
 
 type
@@ -155,6 +156,7 @@ type
 
 var
   FrmMain: TFrmMain;
+  Config : TIniFile;
 
 const
   BOTAO_NOVO      = 1;
@@ -242,14 +244,29 @@ begin
 end;
 
 procedure TFrmMain.Conectar;
+  var Params : Array [0..6] of string;
 begin
-  DM.Conn.Params.Add('Server=127.0.0.1');
-  DM.Conn.Params.Add('Port=5432');
-  DM.Conn.Params.Add('Database=programa');
-  DM.Conn.Params.Add('User_Name=postgres');
-  DM.Conn.Params.Add('Password=Super@321');
-  DM.FDPhysPgDriverLink.VendorHome := 'C:\Program Files (x86)\PostgreSQL\9.6';
-  DM.FDPhysPgDriverLink.VendorLib := 'libpq.dll';
+  Config := TIniFile.Create(GetCurrentDir+'\config.ini');
+  try
+    Params[0] := Config.ReadString('Banco','server','');
+    Params[1] := Config.ReadString('Banco','port','');
+    Params[2] := Config.ReadString('Banco','database','');
+    Params[3] := Config.ReadString('Banco','username','');
+    Params[4] := Config.ReadString('Banco','password','');
+    Params[5] := Config.ReadString('Banco','vendorhome','');
+    Params[6] := Config.ReadString('Banco','vendorlib','');
+  finally
+    FreeAndNil(Config);
+  end;
+
+  DM.Conn.Params.Add('Server='+Params[0]);
+  DM.Conn.Params.Add('Port='+Params[1]);
+  DM.Conn.Params.Add('Database='+Params[2]);
+  DM.Conn.Params.Add('User_Name='+Params[3]);
+  DM.Conn.Params.Add('Password='+Params[4]);
+  DM.FDPhysPgDriverLink.VendorHome := Params[5];
+  DM.FDPhysPgDriverLink.VendorLib := Params[6];
+
   DM.Conn.Connected := True;
 end;
 

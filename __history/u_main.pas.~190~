@@ -27,7 +27,8 @@ uses
   cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, cxNavigator, cxDBData, cxGridLevel, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
-  u_util
+  u_util, frxClass, frxDBSet,
+  System.IniFiles
   ;
 
 type
@@ -119,6 +120,8 @@ type
     BtnCadPrimeiro: TButton;
     BtnCadProximo: TButton;
     BtnCadUltimo: TButton;
+    frxRepAniversariantes: TfrxReport;
+    frxDBDataset: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure BtnCadInserirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -132,6 +135,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure BtnCadUltimoClick(Sender: TObject);
     procedure BtnCadPrimeiroClick(Sender: TObject);
+    procedure BrnRelAniversariantesClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -147,10 +151,12 @@ type
     procedure EstadoBotoes(Value : integer);
     procedure GetUltimoCliente();
     procedure GetPrimeiroCliente();
+    procedure Conectar();
   end;
 
 var
   FrmMain: TFrmMain;
+  Config : TIniFile;
 
 const
   BOTAO_NOVO      = 1;
@@ -166,6 +172,11 @@ implementation
 {$R *.dfm}
 
 { TFrmMain }
+
+procedure TFrmMain.BrnRelAniversariantesClick(Sender: TObject);
+begin
+  frxRepAniversariantes.ShowReport(True);
+end;
 
 procedure TFrmMain.BtnCadAnteriorClick(Sender: TObject);
   var pos: integer;
@@ -232,6 +243,33 @@ begin
   GetUltimoCliente();
 end;
 
+procedure TFrmMain.Conectar;
+  var Params : Array [0..6] of string;
+begin
+  Config := TIniFile.Create(GetCurrentDir+'\config.ini');
+  try
+    Params[0] := Config.ReadString('Banco','server','127.0.0.1');
+    Params[0] := Config.ReadString('Banco','port','5432');
+    Params[0] := Config.ReadString('Banco','database','programa');
+    Params[0] := Config.ReadString('Banco','username','postgres');
+    Params[0] := Config.ReadString('Banco','password','Super@321');
+    Params[0] := Config.ReadString('Banco','vendorhome','C:\Program Files (x86)\PostgreSQL\9.6');
+    Params[0] := Config.ReadString('Banco','vendorlib','libpq.dll');
+
+  finally
+    FreeAndNil(Config);
+  end;
+
+  DM.Conn.Params.Add('Server=127.0.0.1');
+  DM.Conn.Params.Add('Port=5432');
+  DM.Conn.Params.Add('Database=programa');
+  DM.Conn.Params.Add('User_Name=postgres');
+  DM.Conn.Params.Add('Password=Super@321');
+  DM.FDPhysPgDriverLink.VendorHome := 'C:\Program Files (x86)\PostgreSQL\9.6';
+  DM.FDPhysPgDriverLink.VendorLib := 'libpq.dll';
+  DM.Conn.Connected := True;
+end;
+
 procedure TFrmMain.EstadoBotoes(Value: integer);
 begin
   case Value of
@@ -271,6 +309,7 @@ end;
 
 procedure TFrmMain.FormShow(Sender: TObject);
 begin
+  Conectar();
   PnlNavegador.Enabled := True;
   BtnCadNovo.Enabled := True;
 end;
